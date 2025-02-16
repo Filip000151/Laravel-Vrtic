@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Evidencija;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class EvidencijaSeeder extends Seeder
 {
@@ -12,8 +14,19 @@ class EvidencijaSeeder extends Seeder
      */
     public function run(): void
     {
-        Evidencija::factory()
-            ->count(5)
-            ->create();
+        DB::table('evidencijas')->insert([
+        [
+            'datum' => Carbon::createFromFormat('d.m.Y', '01.03.2025')->toDateString(),
+            'grupa_id' => 1
+        ],
+        [
+            'datum' => Carbon::createFromFormat('d.m.Y', '05.03.2025')->toDateString(),
+            'grupa_id' => 2
+        ],
+        [
+            'datum' => Carbon::createFromFormat('d.m.Y', '07.03.2025')->toDateString(),
+            'grupa_id' => 1
+        ]
+        ]);
     }
 }

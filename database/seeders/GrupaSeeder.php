@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Grupa;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
 
 class GrupaSeeder extends Seeder
 {
@@ -12,8 +14,19 @@ class GrupaSeeder extends Seeder
      */
     public function run(): void
     {
-        Grupa::factory()
-            ->count(5)
-            ->create();
+        DB::table('grupas')->insert([
+        [
+            'naziv' => 'Leptirici',
+            'vaspitac_id' => 2
+        ],
+        [
+            'naziv' => 'Pcelice',
+            'vaspitac_id' => 2
+        ],
+        [
+            'naziv' => 'Cvetici',
+            'vaspitac_id' => 3
+        ]
+        ]);
     }
 }

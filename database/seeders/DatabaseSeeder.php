@@ -15,15 +15,20 @@ class DatabaseSeeder extends Seeder
         $user = \App\Models\User::factory()
             ->count(1)
             ->create([
-                'email' => 'admin@admin.com',
+                'email' => 'filipmilutinovic@gmail.com',
                 'password' => \Hash::make('admin'),
+                'ime' => 'Filip',
+                'prezime' => 'Milutinovic',
+                'broj_telefona' => '0643158544',
+                'uloga' => 'admin'
             ]);
-
-        $this->call(DeteSeeder::class);
-        $this->call(EvidencijaSeeder::class);
-        $this->call(GrupaSeeder::class);
-        $this->call(PrijavaSeeder::class);
+        
         $this->call(RoditeljSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(GrupaSeeder::class);
+        $this->call(DeteSeeder::class);
+        $this->call(EvidencijaSeeder::class);
+        $this->call(PrijavaSeeder::class);
+        $this->call(PrisustvoSeeder::class);
     }
 }
