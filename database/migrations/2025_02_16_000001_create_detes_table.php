@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('prezime');
             $table->date('datum_rodjenja');
             $table->text('napomene')->nullable();
-            $table->string('jmbg')->unique();
+            $table->string('jmbg', 13)->unique();
             $table->unsignedBigInteger('roditelj_id');
             $table->unsignedBigInteger('grupa_id');
 

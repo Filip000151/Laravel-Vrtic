@@ -53,8 +53,8 @@ class PrisustvoSeeder extends Seeder
         [
             'evidencija_id' => 3,
             'dete_id' => 4,
-            'status' => 'prisutan',
-            'napomena' => 'Kasnjenje'
+            'status' => 'opravdano',
+            'napomena' => 'Ima temperaturu'
         ]
         ]);
     }

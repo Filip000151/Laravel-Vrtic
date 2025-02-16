@@ -20,12 +20,12 @@ class Grupa extends Model
         return $this->belongsTo(User::class, 'vaspitac_id');
     }
 
-    public function detes()
+    public function deca()
     {
         return $this->hasMany(Dete::class);
     }
 
-    public function evidencijas()
+    public function evidencije()
     {
         return $this->hasMany(Evidencija::class);
     }

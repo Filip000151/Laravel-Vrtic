@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('prisustvo', function (Blueprint $table) {
             $table->foreignId('evidencija_id');
             $table->foreignId('dete_id');
-            $table->string('status')->default('odsutan');
+            $table->enum('status', ['odsutan', 'prisutan', 'opravdano'])->default('odsutan');
             $table->text('napomena')->nullable();
 
             $table->timestamps();

@@ -1,0 +1,13 @@
+controllers:
+  Dete:
+    resource
+  Evidencija:
+    resource
+  Grupa:
+    resource
+  Prijava:
+    resource
+  Roditelj:
+    resource
+  User:
+    resource

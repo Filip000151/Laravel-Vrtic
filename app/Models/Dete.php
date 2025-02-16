@@ -37,8 +37,8 @@ class Dete extends Model
         return $this->belongsTo(Grupa::class);
     }
 
-    public function evidencijas()
+    public function evidencije()
     {
-        return $this->belongsToMany(Evidencija::class, 'prisustvo');
+        return $this->belongsToMany(Evidencija::class, 'prisustvo')->withPivot('status', 'napomena');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('ime');
             $table->string('prezime');
             $table->string('broj_telefona');
-            $table->string('jmbg')->unique();
+            $table->string('jmbg', 13)->unique();
 
             $table->timestamps();
         });

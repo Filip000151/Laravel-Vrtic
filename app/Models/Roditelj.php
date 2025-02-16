@@ -15,7 +15,7 @@ class Roditelj extends Model
 
     protected $searchableFields = ['*'];
 
-    public function detes()
+    public function deca()
     {
         return $this->hasMany(Dete::class);
     }

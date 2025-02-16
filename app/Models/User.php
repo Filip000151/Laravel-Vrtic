@@ -33,12 +33,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function grupas()
+    public function grupe()
     {
         return $this->hasMany(Grupa::class, 'vaspitac_id');
     }
 
-    public function prijavas()
+    public function prijave()
     {
         return $this->hasMany(Prijava::class, 'administrator_id');
     }

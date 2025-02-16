@@ -24,8 +24,8 @@ class Evidencija extends Model
         return $this->belongsTo(Grupa::class);
     }
 
-    public function detes()
+    public function deca()
     {
-        return $this->belongsToMany(Dete::class, 'prisustvo');
+        return $this->belongsToMany(Dete::class, 'prisustvo')->withPivot('status', 'napomena');
     }
 }

@@ -15,15 +15,15 @@ return new class extends Migration {
             $table->string('ime_dete');
             $table->string('prezime_dete');
             $table->date('datum_rodjenja');
-            $table->string('jmbg_dete');
+            $table->string('jmbg_dete', 13);
             $table->string('ime_roditelj');
             $table->string('prezime_roditelj');
             $table->string('broj_telefona');
-            $table->string('jmbg_roditelj');
+            $table->string('jmbg_roditelj', 13);
             $table->text('napomene')->nullable();
             $table->date('datum_prijave');
             $table->unsignedBigInteger('administrator_id')->nullable();
-            $table->string('status')->default('nepotvrdjen');
+            $table->enum('status', ['nepotvrdjen', 'potvrdjen', 'odbijen'])->default('nepotvrdjen');
 
             $table->timestamps();
         });

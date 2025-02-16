@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('remember_token', 100)->nullable();
-            $table->string('uloga')->default('vaspitac');
+            $table->enum('uloga', ['admin', 'vaspitac'])->default('vaspitac');
 
             $table->timestamps();
         });
