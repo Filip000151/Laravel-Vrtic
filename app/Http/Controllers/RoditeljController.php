@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class RoditeljController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $roditeljs = Roditelj::all();
 
@@ -20,12 +20,12 @@ class RoditeljController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('roditelj.create');
     }
 
-    public function store(RoditeljStoreRequest $request): Response
+    public function store(RoditeljStoreRequest $request)
     {
         $roditelj = Roditelj::create($request->validated());
 
@@ -34,21 +34,21 @@ class RoditeljController extends Controller
         return redirect()->route('roditeljs.index');
     }
 
-    public function show(Request $request, Roditelj $roditelj): Response
+    public function show(Request $request, Roditelj $roditelj)
     {
         return view('roditelj.show', [
             'roditelj' => $roditelj,
         ]);
     }
 
-    public function edit(Request $request, Roditelj $roditelj): Response
+    public function edit(Request $request, Roditelj $roditelj)
     {
         return view('roditelj.edit', [
             'roditelj' => $roditelj,
         ]);
     }
 
-    public function update(RoditeljUpdateRequest $request, Roditelj $roditelj): Response
+    public function update(RoditeljUpdateRequest $request, Roditelj $roditelj)
     {
         $roditelj->update($request->validated());
 
@@ -57,7 +57,7 @@ class RoditeljController extends Controller
         return redirect()->route('roditeljs.index');
     }
 
-    public function destroy(Request $request, Roditelj $roditelj): Response
+    public function destroy(Request $request, Roditelj $roditelj)
     {
         $roditelj->delete();
 

@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class EvidencijaController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $evidencijas = Evidencija::all();
 
@@ -20,12 +20,12 @@ class EvidencijaController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('evidencija.create');
     }
 
-    public function store(EvidencijaStoreRequest $request): Response
+    public function store(EvidencijaStoreRequest $request)
     {
         $evidencija = Evidencija::create($request->validated());
 
@@ -34,21 +34,21 @@ class EvidencijaController extends Controller
         return redirect()->route('evidencijas.index');
     }
 
-    public function show(Request $request, Evidencija $evidencija): Response
+    public function show(Request $request, Evidencija $evidencija)
     {
         return view('evidencija.show', [
             'evidencija' => $evidencija,
         ]);
     }
 
-    public function edit(Request $request, Evidencija $evidencija): Response
+    public function edit(Request $request, Evidencija $evidencija)
     {
         return view('evidencija.edit', [
             'evidencija' => $evidencija,
         ]);
     }
 
-    public function update(EvidencijaUpdateRequest $request, Evidencija $evidencija): Response
+    public function update(EvidencijaUpdateRequest $request, Evidencija $evidencija)
     {
         $evidencija->update($request->validated());
 
@@ -57,7 +57,7 @@ class EvidencijaController extends Controller
         return redirect()->route('evidencijas.index');
     }
 
-    public function destroy(Request $request, Evidencija $evidencija): Response
+    public function destroy(Request $request, Evidencija $evidencija)
     {
         $evidencija->delete();
 

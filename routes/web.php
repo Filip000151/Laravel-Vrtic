@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PrijavaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DeteController;
+use App\Http\Controllers\RoditeljController;
+use App\Http\Controllers\EvidencijaController;
+use App\Http\Controllers\GrupaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +20,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PrijavaController::class, 'create'])->name('prijavas.create');
 
 Auth::routes();
 

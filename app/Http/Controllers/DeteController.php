@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class DeteController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $detes = Dete::all();
 
@@ -20,12 +20,12 @@ class DeteController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('dete.create');
     }
 
-    public function store(DeteStoreRequest $request): Response
+    public function store(DeteStoreRequest $request)
     {
         $dete = Dete::create($request->validated());
 
@@ -34,21 +34,21 @@ class DeteController extends Controller
         return redirect()->route('detes.index');
     }
 
-    public function show(Request $request, Dete $dete): Response
+    public function show(Request $request, Dete $dete)
     {
         return view('dete.show', [
             'dete' => $dete,
         ]);
     }
 
-    public function edit(Request $request, Dete $dete): Response
+    public function edit(Request $request, Dete $dete)
     {
         return view('dete.edit', [
             'dete' => $dete,
         ]);
     }
 
-    public function update(DeteUpdateRequest $request, Dete $dete): Response
+    public function update(DeteUpdateRequest $request, Dete $dete)
     {
         $dete->update($request->validated());
 
@@ -57,7 +57,7 @@ class DeteController extends Controller
         return redirect()->route('detes.index');
     }
 
-    public function destroy(Request $request, Dete $dete): Response
+    public function destroy(Request $request, Dete $dete)
     {
         $dete->delete();
 

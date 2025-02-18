@@ -11,8 +11,7 @@
         
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-        
+        <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
         
@@ -26,6 +25,11 @@
 
         
         @livewireStyles
+        <style>
+            body {
+            font-family: 'Irish Grover', cursive;
+            }
+        </style>        
     </head>
     
     <body>
@@ -51,34 +55,5 @@
             notyf.success('{{ session('success') }}')
         </script> 
         @endif
-        
-        <script>
-            /* Simple Alpine Image Viewer */
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('imageViewer', (src = '') => {
-                    return {
-                        imageUrl: src,
-        
-                        refreshUrl() {
-                            this.imageUrl = this.$el.getAttribute("image-url")
-                        },
-        
-                        fileChosen(event) {
-                            this.fileToDataUrl(event, src => this.imageUrl = src)
-                        },
-        
-                        fileToDataUrl(event, callback) {
-                            if (! event.target.files.length) return
-        
-                            let file = event.target.files[0],
-                                reader = new FileReader()
-        
-                            reader.readAsDataURL(file)
-                            reader.onload = e => callback(e.target.result)
-                        },
-                    }
-                })
-            })
-        </script>
     </body>
 </html>

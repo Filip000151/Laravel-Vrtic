@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class GrupaController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $grupas = Grupa::all();
 
@@ -20,12 +20,12 @@ class GrupaController extends Controller
         ]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('grupa.create');
     }
 
-    public function store(GrupaStoreRequest $request): Response
+    public function store(GrupaStoreRequest $request)
     {
         $grupa = Grupa::create($request->validated());
 
@@ -34,21 +34,21 @@ class GrupaController extends Controller
         return redirect()->route('grupas.index');
     }
 
-    public function show(Request $request, Grupa $grupa): Response
+    public function show(Request $request, Grupa $grupa)
     {
         return view('grupa.show', [
             'grupa' => $grupa,
         ]);
     }
 
-    public function edit(Request $request, Grupa $grupa): Response
+    public function edit(Request $request, Grupa $grupa)
     {
         return view('grupa.edit', [
             'grupa' => $grupa,
         ]);
     }
 
-    public function update(GrupaUpdateRequest $request, Grupa $grupa): Response
+    public function update(GrupaUpdateRequest $request, Grupa $grupa)
     {
         $grupa->update($request->validated());
 
@@ -57,7 +57,7 @@ class GrupaController extends Controller
         return redirect()->route('grupas.index');
     }
 
-    public function destroy(Request $request, Grupa $grupa): Response
+    public function destroy(Request $request, Grupa $grupa)
     {
         $grupa->delete();
 
