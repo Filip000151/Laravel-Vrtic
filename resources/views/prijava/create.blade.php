@@ -42,7 +42,8 @@
                 color: #27AB23;
                 border: 1px solid #3C23AB;
             }
-            .custom-btn:hover {
+            .custom-btn:hover,
+            .custom-btn2:hover {
                 color: #9BC699;
             }
             .custom-btn2 {
@@ -50,17 +51,14 @@
                 color: #3C23AB;
                 border: 1px solid #3C23AB;
             }
-            .custom-btn2:hover {
-                color: #60D2FF;
-            }
         </style>
     </head>
     
     <body style="background-color: #DAFFA7">
 
         <div class="container">
-            <div class="d-flex justify-content-end mt-3">
-                <a href="{{route('login')}}" class="btn custom-btn2">Login</a>
+            <div class="d-flex row justify-content-end mt-3">
+                <a style="font-size: 16px;" href="{{route('login')}}" class="btn custom-btn2 col-sm-1">Login</a>
             </div>
             <h1 style="color: #27AB23" class="text-center display-1">Sunshine Kidz</h1>
 
@@ -147,7 +145,7 @@
                             </div>
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-end mb-3">
-                            <button type="submit" class="btn custom-btn">Prijavi</button>
+                            <button style="font-size: 16px;" type="submit" class="btn custom-btn col-sm-3">Prijavi</button>
                         </div>
                     </div>
                 </form>

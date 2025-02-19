@@ -26,10 +26,32 @@
         
         @livewireStyles
         <style>
-            body {
-            font-family: 'Irish Grover', cursive;
+            body{
+                font-family: 'Irish Grover', cursive;
+                background-color: #A7E6FF;
+                color: #3C23AB;
             }
-        </style>        
+            .nav-link:hover{
+                color: #A7E6FF !important;
+            }
+            .nav-link.active{
+                background-color: #1FBFFE;
+            }
+            .custom-btn:hover,
+            .custom-btn2:hover{
+                color: #9BC699;
+            }
+            .custom-btn{
+                background: linear-gradient(to bottom, #79A9E7, #36F8CA);
+                color: #3C23AB;
+                border: 1px solid #3C23AB;
+            }
+            .custom-btn2{
+                background: linear-gradient(to bottom, #79A9E7, #FF416A);
+                color: #3C23AB;
+                border: 1px solid #3C23AB;
+            }
+        </style>
     </head>
     
     <body>

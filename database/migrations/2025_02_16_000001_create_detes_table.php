@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->text('napomene')->nullable();
             $table->string('jmbg', 13)->unique();
             $table->unsignedBigInteger('roditelj_id');
-            $table->unsignedBigInteger('grupa_id');
+            $table->unsignedBigInteger('grupa_id')->nullable();
 
             $table->timestamps();
         });
