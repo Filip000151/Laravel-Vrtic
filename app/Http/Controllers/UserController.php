@@ -7,17 +7,17 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::all();
-
-        return view('user.index', [
-            'users' => $users,
-        ]);
+        $uloga = $request->query('uloga', 'vaspitac');
+        $users = User::where('uloga', $uloga)->get();
+        return view('user.index', compact('users', 'uloga'));
     }
 
     public function create(Request $request)
@@ -27,11 +27,16 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-        $user = User::create($request->validated());
+        User::create([
+            'ime' => $request['ime'],
+            'prezime' => $request['prezime'],
+            'broj_telefona' => $request['broj_telefona'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'uloga' => $request['uloga'],
+        ]);
 
-        $request->session()->flash('user.id', $user->id);
-
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Korisnik je uspešno registrovan!');
     }
 
     public function show(Request $request, User $user)
@@ -50,11 +55,19 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request, User $user)
     {
-        $user->update($request->validated());
+        if(!Hash::check($request->old_password, $user->password)){
+            return redirect()->back()->withErrors(['old_password' => 'Stara lozinka nije tačna!'])->withInput();
+        }
 
-        $request->session()->flash('user.id', $user->id);
+        $podaci = $request->only(['ime', 'prezime', 'broj_telefona', 'email']);
 
-        return redirect()->route('users.index');
+        if ($request->filled('password')) {
+            $podaci['password'] = Hash::make($request->password);
+        }
+
+        $user->update($podaci);
+
+        return redirect()->route('users.index')->with('success', 'Podaci su uspešno ažurirani!');
     }
 
     public function destroy(Request $request, User $user)

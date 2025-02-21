@@ -51,6 +51,42 @@
                 color: #3C23AB;
                 border: 1px solid #3C23AB;
             }
+            .custom-link{
+            color: #3C23AB;
+            }
+            .nav-tabs{
+                border-bottom: solid 2px #3C23AB !important;
+            }
+            .custom-link:hover{
+                color: #60D2FF !important;
+                border: 2px solid #60D2FF !important;
+            }
+            .custom-link.active{
+                background-color: #1FBFFE !important;
+                border: #1FBFFE !important;
+                color: #3C23AB !important;
+            }
+            .table thead tr{
+                border-bottom: 3px solid #3C23AB;
+                border-top: 2px solid #3C23AB;
+            }
+            .table tbody tr{
+                border-top: 2px solid #3C23AB;
+            }
+            .custom-card{
+                background-color: #1FBFFE;
+            }
+            .custom-link2{
+                color: #3C23AB;
+            }
+            .list-group-item{
+                background-color: #1FBFFE;
+                color: #3C23AB;
+            }
+            .list-group-item:hover{
+                background-color: #A7E6FF;
+                color: #1FBFFE;
+            }
         </style>
     </head>
     

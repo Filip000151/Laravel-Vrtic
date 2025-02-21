@@ -70,14 +70,14 @@
                 <div style="background-color: #60D2FF;" class="col-sm-5 custom-border mt-5 p-4 align-items-center">
                     <div class="row d-flex justify-content-around">
                         <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="{{route('prijavas.index')}}">Prijave</a>
-                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="">Deca</a>
+                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="{{route('detes.index')}}">Deca</a>
                     </div>
                     <div class="row d-flex justify-content-around mt-4">
-                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="">Korisnici</a>
-                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="">Roditelji</a>
+                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="{{route('users.index')}}">Korisnici</a>
+                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="{{route('roditeljs.index')}}">Roditelji</a>
                     </div>
                     <div class="row d-flex justify-content-around mt-4">
-                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="">Grupe</a>
+                        <a style="font-size: 20px;" class="btn custom-btn2 col-sm-4" href="{{route('grupas.index')}}">Grupe</a>
                         <form action="{{ route('logout') }}" method="POST" class="col-sm-4">
                             @csrf
                             <div class="row">

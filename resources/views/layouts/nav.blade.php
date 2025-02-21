@@ -7,16 +7,16 @@
             <a style="color: #3C23AB" class="nav-link {{ Request::is('prijavas') ? 'active' : '' }}" href="{{route('prijavas.index')}}">Prijave</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('users') ? 'active' : '' }}" href="#">Korisnici</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('users') ? 'active' : '' }}" href="{{route('users.index')}}">Korisnici</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('detes') ? 'active' : '' }}" href="#">Deca</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('detes') ? 'active' : '' }}" href="{{route('detes.index')}}">Deca</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('roditeljs') ? 'active' : '' }}" href="#">Roditelji</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('roditeljs') ? 'active' : '' }}" href="{{route('roditeljs.index')}}">Roditelji</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('grupas') ? 'active' : '' }}" href="#">Grupe</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('grupas') ? 'active' : '' }}" href="{{route('grupas.index')}}">Grupe</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">

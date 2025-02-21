@@ -1,7 +1,8 @@
-{{--
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('content')
-        dete.index template
-    @endsection
---}}
+@section('content')
+    <div class="container">
+        <h2 class="h1 text-center">Deca</h2>
+    </div>
+@endsection
+

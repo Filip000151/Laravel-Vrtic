@@ -1,31 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .table thead tr{
-            border-bottom: 3px solid #3C23AB;
-            border-top: 2px solid #3C23AB;
-        }
-        .table tbody tr{
-            border-top: 2px solid #3C23AB;
-        }
-        .custom-link{
-            color: #3C23AB;
-        }
-        .nav-tabs{
-            border-bottom: solid 2px #3C23AB !important;
-        }
-        .custom-link:hover{
-            color: #60D2FF !important;
-            border: 2px solid #60D2FF !important;
-        }
-        .custom-link.active{
-            background-color: #1FBFFE !important;
-            border: #1FBFFE !important;
-            color: #3C23AB !important;
-        }
-    </style>
-    
     <div class="container">
         <h2 class="text-center">Prijave</h2>
         <ul style="font-size: 16px" class="nav nav-tabs justify-content-center mt-5">
