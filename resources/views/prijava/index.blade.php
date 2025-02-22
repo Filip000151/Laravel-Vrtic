@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link custom-link {{$status === 'odbijen' ? 'active disabled' : ''}}" href="{{route('prijavas.index', ['status' => 'odbijen'])}}">Odbijene</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link custom-link {{$status === 'ispisan' ? 'active disabled' : ''}}" href="{{route('prijavas.index', ['status' => 'ispisan'])}}">Ispisan</a>
+            </li>
         </ul>
 
         @if($prijavas->isEmpty())

@@ -6,6 +6,8 @@
         <h2 class="text-center">Nepotvrđena prijava</h2>
         @elseif($prijava->status == 'potvrdjen')
         <h2 class="text-center">Potvrđena prijava</h2>
+        @elseif($prijava->status == 'ispisan')
+        <h2 class="text-center">Potvrđena prijava (ispisan)</h2>
         @else
         <h2 class="text-center">Odbijena prijava</h2>
         @endif
@@ -66,6 +68,12 @@
                     </form>
                 </div>
                 @elseif($prijava->status == 'potvrdjen')
+                <div class="row justify-content-end mt-5">
+                    <div class="col-auto">
+                        <p>Potvrdio: <inline class="font-weight-bold">{{$prijava->administrator->ime}} {{$prijava->administrator->prezime}}</inline></p>
+                    </div>
+                </div>
+                @elseif($prijava->status == 'ispisan')
                 <div class="row justify-content-end mt-5">
                     <div class="col-auto">
                         <p>Potvrdio: <inline class="font-weight-bold">{{$prijava->administrator->ime}} {{$prijava->administrator->prezime}}</inline></p>

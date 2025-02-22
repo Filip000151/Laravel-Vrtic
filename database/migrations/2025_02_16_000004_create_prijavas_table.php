@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->text('napomene')->nullable();
             $table->date('datum_prijave');
             $table->unsignedBigInteger('administrator_id')->nullable();
-            $table->enum('status', ['nepotvrdjen', 'potvrdjen', 'odbijen'])->default('nepotvrdjen');
+            $table->enum('status', ['nepotvrdjen', 'potvrdjen', 'odbijen', 'ispisan'])->default('nepotvrdjen');
 
             $table->timestamps();
         });

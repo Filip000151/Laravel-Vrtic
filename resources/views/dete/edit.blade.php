@@ -1,7 +1,89 @@
-{{--
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('content')
-        dete.edit template
-    @endsection
---}}
+@section('content')
+    <div class="container">
+        <h2 class="h1 text-center">{{$dete->ime}} {{$dete->prezime}}</h2>
+
+        <div class="row justify-content-center">
+            <div style="background-color: #60D2FF;" class="col-sm-9 mt-4 p-4">
+                <form action="{{route('detes.update', ['dete' => $dete])}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row mb-3 mt-3 align-items-center">
+                                <label class="col-sm-2 col-form-label">Ime:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" value="{{old('ime', $dete->ime)}}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3 align-items-center">
+                                <label class="col-sm-2 col-form-label">Prezime:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" value="{{old('prezime', $dete->prezime)}}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3 align-items-center">
+                                <label class="col-sm-2 col-form-label">Datum rođenja:</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" value="{{old('datum_rodjenja', $dete->datum_rodjenja->format('Y-m-d'))}}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3 align-items-center">
+                                <label class="col-sm-2 col-form-label">JMBG:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" value="{{old('jmbg', $dete->jmbg)}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row mb-3 align-items-center">
+                                <label class="col-sm-2 col-form-label">Roditelj:</label>
+                                <div class="col-sm-9">
+                                    <select name="roditelj" class="custom-select" disabled>
+                                        @foreach($roditelji as $roditelj)
+                                        <option value="{{$roditelj->id}}" {{old('roditelj', $dete->roditelj->id) == $roditelj->id ? 'selected' : ''}}>{{$roditelj->ime}} {{$roditelj->prezime}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3 align-items-center">
+                                <label class="col-sm-2 col-form-label">Grupa:</label>
+                                <div class="col-sm-9">
+                                    @if(is_null($dete->grupa))
+                                    <select name="grupa" class="custom-select">
+                                        <option value="">Negrupisan</option>
+                                        @foreach($grupe as $grupa)
+                                        <option value="{{$grupa->id}}">{{$grupa->naziv}}</option>
+                                        @endforeach
+                                    </select>
+                                    @else
+                                    <select name="grupa" class="custom-select">
+                                        <option value="negrupisan">-Negrupisan-</option>
+                                        @foreach($grupe as $grupa)
+                                        <option value="{{$grupa->id}}" {{old('grupa', $dete->grupa->id) == $grupa->id ? 'selected' : ''}}>{{$grupa->naziv}}</option>
+                                        @endforeach
+                                    </select>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="" class="form-label">Napomene:</label>
+                                <textarea class="form-control" name="napomene" disabled>{{$dete->napomene}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around mt-3">
+                        <div class="col-auto">
+                            <button class="btn custom-btn" type="submit">Izmeni</button>
+                        </div>
+                        <div class="col-auto">
+                            <a class="btn custom-btn2" href="{{route('detes.show', ['dete' => $dete])}}">Otkaži</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+

@@ -51,15 +51,27 @@
                 color: #3C23AB;
                 border: 1px solid #3C23AB;
             }
+            .nav-link:hover{
+                color: #A7E6FF !important;
+            }
+            .nav-link.active{
+                background-color: #1FBFFE;
+            }
         </style>
     </head>
     
     <body style="background-color: #DAFFA7">
 
+        @if(auth()->check())
+        @include('layouts.nav')
+        @endif
+
         <div class="container">
+            @guest
             <div class="d-flex row justify-content-end mt-3">
                 <a style="font-size: 16px;" href="{{route('login')}}" class="btn custom-btn2 col-sm-1">Login</a>
             </div>
+            @endguest
             <h1 style="color: #27AB23" class="text-center display-1">Sunshine Kidz</h1>
 
             @if(session('success'))

@@ -20,7 +20,7 @@ class DeteUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dete' => ['required'],
+            'grupa' => ['string']
         ];
     }
 }

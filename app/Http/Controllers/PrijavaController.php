@@ -18,7 +18,7 @@ class PrijavaController extends Controller
     public function index(Request $request)
     {
         $status = $request->query('status', 'nepotvrdjen');
-        $prijavas = Prijava::where('status', $status)->get();
+        $prijavas = Prijava::where('status', $status)->orderBy('datum_prijave', 'desc')->get();
         return view('prijava.index', compact('prijavas', 'status'));
     }
 

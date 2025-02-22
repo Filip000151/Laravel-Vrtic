@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DeteStoreRequest;
 use App\Http\Requests\DeteUpdateRequest;
 use App\Models\Dete;
+use App\Models\Roditelj;
+use App\Models\Grupa;
+use App\Models\Prijava;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,11 +16,16 @@ class DeteController extends Controller
 {
     public function index(Request $request)
     {
-        $detes = Dete::all();
+        $grupa = $request->query('grupa', 'negrupisana');
 
-        return view('dete.index', [
-            'detes' => $detes,
-        ]);
+        if($grupa === 'grupisana'){
+            $deca = Dete::whereNotNull('grupa_id');
+        }
+        elseif($grupa === 'negrupisana'){
+            $deca = Dete::whereNull('grupa_id');
+        }
+
+        return view('dete.index', ['deca' => $deca->get(), 'grupa' => $grupa]);
     }
 
     public function create(Request $request)
@@ -43,24 +51,51 @@ class DeteController extends Controller
 
     public function edit(Request $request, Dete $dete)
     {
+        $roditelji = Roditelj::all();
+        $grupe = Grupa::all();
         return view('dete.edit', [
             'dete' => $dete,
+            'roditelji' => $roditelji,
+            'grupe' => $grupe
         ]);
     }
 
     public function update(DeteUpdateRequest $request, Dete $dete)
     {
-        $dete->update($request->validated());
+        if($request->grupa == 'negrupisan'){
+            $dete->update([
+                'grupa_id' => null
+            ]);
+        }
+        else{
+            $dete->update([
+                'grupa_id' => $request->grupa
+            ]);
+        }
 
-        $request->session()->flash('dete.id', $dete->id);
-
-        return redirect()->route('detes.index');
+        return redirect()->route('detes.index')->with('success', 'Dete je ažurirano!');
     }
 
     public function destroy(Request $request, Dete $dete)
     {
+        $roditelj = $dete->roditelj;
+
+        $broj_dece = $roditelj->deca()->count();
+
+        if($broj_dece == 1){
+            $roditelj->delete();
+        }
+
+        $jmbg = $dete->jmbg;
+
         $dete->delete();
 
-        return redirect()->route('detes.index');
+        $prijava = Prijava::where('jmbg_dete', $jmbg)->where('status', 'potvrdjen');
+
+        $prijava->update([
+            'status' => 'ispisan'
+        ]);
+
+        return redirect()->route('detes.index')->with('success', 'Dete je ispisano!');
     }
 }

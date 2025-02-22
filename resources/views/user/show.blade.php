@@ -44,10 +44,10 @@
                             @else
                                 @foreach($user->prijave as $prijava)
                                 <a href="{{route('prijavas.show', ['prijava' => $prijava])}}" class="list-group-item list-group-item-action text-center">
-                                    @if($prijava->status == 'potvrdjen')    
-                                    {{$prijava->ime_dete}} {{$prijava->prezime_dete}} - Potvrđena prijava
+                                    @if($prijava->status == 'potvrdjen' || $prijava->status == 'ispisan')
+                                    (✓) {{$prijava->ime_dete}} {{$prijava->prezime_dete}} - {{$prijava->datum_prijave->format('d.m.Y.')}}
                                     @else
-                                    {{$prijava->ime_dete}} {{$prijava->prezime_dete}} - Odbijena prijava
+                                    (✗) {{$prijava->ime_dete}} {{$prijava->prezime_dete}} - {{$prijava->datum_prijave->format('d.m.Y.')}}
                                     @endif
                                 </a>
                                 @endforeach
