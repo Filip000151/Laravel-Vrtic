@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
                 'ime' => 'Filip',
                 'prezime' => 'Milutinovic',
                 'broj_telefona' => '0643158544',
-                'uloga' => 'admin'
+                'uloga' => 'admin',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         
         $this->call(RoditeljSeeder::class);

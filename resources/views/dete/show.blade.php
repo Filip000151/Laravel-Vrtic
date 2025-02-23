@@ -18,18 +18,19 @@
                         @endif
                     </div>
                     <div class="col-sm-6">
-                        <p>Roditelj: <inline class="font-weight-bold">{{$dete->roditelj->ime}} {{$dete->roditelj->prezime}}</inline></p>
+                        <p>Roditelj: <a href="{{route('roditeljs.show', ['roditelj' => $dete->roditelj])}}" class="font-weight-bold link">{{$dete->roditelj->ime}} {{$dete->roditelj->prezime}}</a></p>
                         @if(is_null($dete->grupa))
                         <p>Grupa: <inline class="text-danger">Negrupisan!</inline></p>
                         @else
                         <p>Grupa: <inline class="font-weight-bold">{{$dete->grupa->naziv}}</inline></p>
+                        <p>Zaduženi vaspitač: <inline class="font-weight-bold">{{$dete->grupa->vaspitac->ime}} {{$dete->grupa->vaspitac->prezime}}</a></p>
                         @endif
                     </div>
                 </div>
                 @if(Auth::user()->uloga == 'admin')
                 <div class="row justify-content-around">
                     <div class="col-auto">
-                        <a class="btn custom-btn" href="{{route('detes.edit', ['dete' => $dete])}}">Izmeni grupu</a>
+                        <a class="btn custom-btn" href="{{route('detes.edit', ['dete' => $dete])}}">Izmeni</a>
                     </div>
                     <div class="col-auto">
                         <form action="{{route('detes.destroy', ['dete' => $dete])}}" method="POST" onsubmit="return confirm('Ispiši dete?');">

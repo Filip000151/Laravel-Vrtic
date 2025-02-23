@@ -18,43 +18,57 @@ class PrisustvoSeeder extends Seeder
             'evidencija_id' => 1,
             'dete_id' => 1,
             'status' => 'prisutan',
-            'napomena' => null
+            'napomena' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'evidencija_id' => 1,
             'dete_id' => 2,
             'status' => 'prisutan',
-            'napomena' => 'Kasnjenje'
+            'napomena' => 'Kasnjenje',
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'evidencija_id' => 1,
             'dete_id' => 4,
             'status' => 'odsutan',
-            'napomena' => null
+            'napomena' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'evidencija_id' => 2,
             'dete_id' => 3,
             'status' => 'prisutan',
-            'napomena' => null
+            'napomena' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'evidencija_id' => 3,
             'dete_id' => 1,
             'status' => 'prisutan',
-            'napomena' => null
+            'napomena' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'evidencija_id' => 3,
             'dete_id' => 2,
             'status' => 'prisutan',
-            'napomena' => null
+            'napomena' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'evidencija_id' => 3,
             'dete_id' => 4,
             'status' => 'opravdano',
-            'napomena' => 'Ima temperaturu'
+            'napomena' => 'Ima temperaturu',
+            'created_at' => now(),
+            'updated_at' => now()
         ]
         ]);
     }

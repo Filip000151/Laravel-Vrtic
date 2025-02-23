@@ -18,19 +18,25 @@ class RoditeljSeeder extends Seeder
             'ime' => 'Bogdan',
             'prezime' => 'Damjanovic',
             'broj_telefona' => '0632453476',
-            'jmbg' => '2304995276349'
+            'jmbg' => '2304995276349',
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime' => 'Jovan',
             'prezime' => 'Adamovic',
             'broj_telefona' => '0654238712',
-            'jmbg' => '1701991476345'
+            'jmbg' => '1701991476345',
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime' => 'Mirjana',
             'prezime' => 'Stojkovic',
             'broj_telefona' => '0612578324',
-            'jmbg' => '0611989265345'
+            'jmbg' => '0611989265345',
+            'created_at' => now(),
+            'updated_at' => now()
         ]
     ]);
     }

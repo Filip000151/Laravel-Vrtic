@@ -13,10 +13,10 @@ class RoditeljController extends Controller
 {
     public function index(Request $request)
     {
-        $roditeljs = Roditelj::all();
+        $roditelji = Roditelj::all();
 
         return view('roditelj.index', [
-            'roditeljs' => $roditeljs,
+            'roditelji' => $roditelji,
         ]);
     }
 
@@ -52,9 +52,7 @@ class RoditeljController extends Controller
     {
         $roditelj->update($request->validated());
 
-        $request->session()->flash('roditelj.id', $roditelj->id);
-
-        return redirect()->route('roditeljs.index');
+        return redirect()->route('roditeljs.index')->with('success', 'Roditelj je izmenjen!');
     }
 
     public function destroy(Request $request, Roditelj $roditelj)

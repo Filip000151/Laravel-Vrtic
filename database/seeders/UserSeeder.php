@@ -20,7 +20,9 @@ class UserSeeder extends Seeder
             'broj_telefona' => '0603176599',
             'email' => 'jelenapesic@gmail.com',
             'password' => \Hash::make('jelena'),
-            'uloga' => 'vaspitac'
+            'uloga' => 'vaspitac',
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime' => 'Ivana',
@@ -28,7 +30,9 @@ class UserSeeder extends Seeder
             'broj_telefona' => '0617174387',
             'email' => 'ivanamilanovic@gmail.com',
             'password' => \Hash::make('ivana'),
-            'uloga' => 'vaspitac'
+            'uloga' => 'vaspitac',
+            'created_at' => now(),
+            'updated_at' => now()
         ]
         ]);
     }

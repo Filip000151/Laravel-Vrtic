@@ -19,10 +19,10 @@ class DeteController extends Controller
         $grupa = $request->query('grupa', 'negrupisana');
 
         if($grupa === 'grupisana'){
-            $deca = Dete::whereNotNull('grupa_id');
+            $deca = Dete::whereNotNull('grupa_id')->orderBy('updated_at', 'desc');
         }
         elseif($grupa === 'negrupisana'){
-            $deca = Dete::whereNull('grupa_id');
+            $deca = Dete::whereNull('grupa_id')->orderBy('updated_at', 'desc');
         }
 
         return view('dete.index', ['deca' => $deca->get(), 'grupa' => $grupa]);
@@ -64,12 +64,22 @@ class DeteController extends Controller
     {
         if($request->grupa == 'negrupisan'){
             $dete->update([
-                'grupa_id' => null
+                'ime' => $request->ime,
+                'prezime' => $request->prezime,
+                'datum_rodjenja' => $request->datum_rodjenja,
+                'jmbg' => $request->jmbg,
+                'grupa_id' => null,
+                'napomene' => $request->napomene
             ]);
         }
         else{
             $dete->update([
-                'grupa_id' => $request->grupa
+                'ime' => $request->ime,
+                'prezime' => $request->prezime,
+                'datum_rodjenja' => $request->datum_rodjenja,
+                'jmbg' => $request->jmbg,
+                'grupa_id' => $request->grupa,
+                'napomene' => $request->napomene
             ]);
         }
 

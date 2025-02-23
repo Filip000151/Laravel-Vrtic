@@ -4,6 +4,16 @@
     <div class="container">
         <h2 class="h1 text-center">{{$dete->ime}} {{$dete->prezime}}</h2>
 
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <div class="row justify-content-center">
             <div style="background-color: #60D2FF;" class="col-sm-9 mt-4 p-4">
                 <form action="{{route('detes.update', ['dete' => $dete])}}" method="POST">
@@ -14,45 +24,35 @@
                             <div class="form-group row mb-3 mt-3 align-items-center">
                                 <label class="col-sm-2 col-form-label">Ime:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{old('ime', $dete->ime)}}" disabled>
+                                    <input type="text" name="ime" class="form-control" value="{{old('ime', $dete->ime)}}">
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
                                 <label class="col-sm-2 col-form-label">Prezime:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{old('prezime', $dete->prezime)}}" disabled>
+                                    <input type="text" name="prezime" class="form-control" value="{{old('prezime', $dete->prezime)}}">
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
                                 <label class="col-sm-2 col-form-label">Datum rođenja:</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" value="{{old('datum_rodjenja', $dete->datum_rodjenja->format('Y-m-d'))}}" disabled>
+                                    <input type="date" name="datum_rodjenja" class="form-control" value="{{old('datum_rodjenja', $dete->datum_rodjenja->format('Y-m-d'))}}">
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
                                 <label class="col-sm-2 col-form-label">JMBG:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="{{old('jmbg', $dete->jmbg)}}" disabled>
+                                    <input type="text" name="jmbg" class="form-control" value="{{old('jmbg', $dete->jmbg)}}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group row mb-3 align-items-center">
-                                <label class="col-sm-2 col-form-label">Roditelj:</label>
-                                <div class="col-sm-9">
-                                    <select name="roditelj" class="custom-select" disabled>
-                                        @foreach($roditelji as $roditelj)
-                                        <option value="{{$roditelj->id}}" {{old('roditelj', $dete->roditelj->id) == $roditelj->id ? 'selected' : ''}}>{{$roditelj->ime}} {{$roditelj->prezime}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-3 align-items-center">
+                            <div class="form-group row mb-3 mt-3 align-items-center">
                                 <label class="col-sm-2 col-form-label">Grupa:</label>
                                 <div class="col-sm-9">
                                     @if(is_null($dete->grupa))
                                     <select name="grupa" class="custom-select">
-                                        <option value="">Negrupisan</option>
+                                        <option value="negrupisan" selected>Negrupisan</option>
                                         @foreach($grupe as $grupa)
                                         <option value="{{$grupa->id}}">{{$grupa->naziv}}</option>
                                         @endforeach
@@ -68,8 +68,8 @@
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="" class="form-label">Napomene:</label>
-                                <textarea class="form-control" name="napomene" disabled>{{$dete->napomene}}</textarea>
+                                <label class="form-label">Napomene:</label>
+                                <textarea class="form-control" name="napomene">{{$dete->napomene}}</textarea>
                             </div>
                         </div>
                     </div>

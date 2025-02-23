@@ -17,15 +17,21 @@ class GrupaSeeder extends Seeder
         DB::table('grupas')->insert([
         [
             'naziv' => 'Leptirici',
-            'vaspitac_id' => 2
+            'vaspitac_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'naziv' => 'Pcelice',
-            'vaspitac_id' => 2
+            'vaspitac_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'naziv' => 'Cvetici',
-            'vaspitac_id' => 3
+            'vaspitac_id' => 3,
+            'created_at' => now(),
+            'updated_at' => now()
         ]
         ]);
     }

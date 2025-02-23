@@ -22,7 +22,9 @@ class DeteSeeder extends Seeder
             'napomene' => 'Alergičan/na na kikiriki, mlečne proizvode, polen, prašinu, ubode insekata.',
             'jmbg' => '2507021754364',
             'roditelj_id' => 1,
-            'grupa_id' => 1
+            'grupa_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime' => 'Filip',
@@ -31,7 +33,9 @@ class DeteSeeder extends Seeder
             'napomene' => 'Intolerancija na laktozu, ne sme mlečne proizvode.',
             'jmbg' => '1111020543692',
             'roditelj_id' => 1,
-            'grupa_id' => 1
+            'grupa_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime' => 'Stefan',
@@ -40,7 +44,9 @@ class DeteSeeder extends Seeder
             'napomene' => 'Astma, koristi pumpicu po potrebi.',
             'jmbg' => '0804021743765',
             'roditelj_id' => 2,
-            'grupa_id' => 2
+            'grupa_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime' => 'Milica',
@@ -49,7 +55,9 @@ class DeteSeeder extends Seeder
             'napomene' => null,
             'jmbg' => '1409020538821',
             'roditelj_id' => 3,
-            'grupa_id' => 1
+            'grupa_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]
         ]);
     }

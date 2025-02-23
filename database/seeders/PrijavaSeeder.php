@@ -27,7 +27,9 @@ class PrijavaSeeder extends Seeder
             'napomene' => 'Alergičan/na na kikiriki, mlečne proizvode, polen, prašinu, ubode insekata.',
             'administrator_id' => 1,
             'status' => 'potvrdjen',
-            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '04.06.2024')->toDateString()
+            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '04.06.2024')->toDateString(),
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime_dete' => 'Jovana',
@@ -41,7 +43,9 @@ class PrijavaSeeder extends Seeder
             'napomene' => null,
             'administrator_id' => null,
             'status' => 'nepotvrdjen',
-            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '25.06.2024')->toDateString()
+            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '25.06.2024')->toDateString(),
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime_dete' => 'Goran',
@@ -55,7 +59,9 @@ class PrijavaSeeder extends Seeder
             'napomene' => null,
             'administrator_id' => null,
             'status' => 'nepotvrdjen',
-            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '17.06.2024')->toDateString()
+            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '17.06.2024')->toDateString(),
+            'created_at' => now(),
+            'updated_at' => now()
         ],
         [
             'ime_dete' => 'Teodora',
@@ -69,7 +75,9 @@ class PrijavaSeeder extends Seeder
             'napomene' => null,
             'administrator_id' => 1,
             'status' => 'odbijen',
-            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '09.05.2024')->toDateString()
+            'datum_prijave' => Carbon::createFromFormat('d.m.Y', '09.05.2024')->toDateString(),
+            'created_at' => now(),
+            'updated_at' => now()
         ]
         ]);
     }
