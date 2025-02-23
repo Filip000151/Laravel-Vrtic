@@ -38,8 +38,10 @@
                 background-color: #1FBFFE;
             }
             .custom-btn:hover,
-            .custom-btn2:hover{
+            .custom-btn2:hover,
+            .custom-btn3:hover{
                 color: #9BC699;
+                opacity: 90%;
             }
             .custom-btn{
                 background: linear-gradient(to bottom, #79A9E7, #36F8CA);
@@ -48,6 +50,11 @@
             }
             .custom-btn2{
                 background: linear-gradient(to bottom, #79A9E7, #FF416A);
+                color: #3C23AB;
+                border: 1px solid #3C23AB;
+            }
+            .custom-btn3{
+                background: linear-gradient(to bottom,#36F8CA, #dde32b);
                 color: #3C23AB;
                 border: 1px solid #3C23AB;
             }

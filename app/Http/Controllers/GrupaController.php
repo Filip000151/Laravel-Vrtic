@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GrupaStoreRequest;
 use App\Http\Requests\GrupaUpdateRequest;
 use App\Models\Grupa;
+use App\Models\User;
+use App\Models\Dete;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,16 +24,15 @@ class GrupaController extends Controller
 
     public function create(Request $request)
     {
-        return view('grupa.create');
+        $vaspitaci = User::where('uloga', 'vaspitac')->get();
+        return view('grupa.create', compact('vaspitaci'));
     }
 
     public function store(GrupaStoreRequest $request)
     {
-        $grupa = Grupa::create($request->validated());
+        Grupa::create($request->validated());
 
-        $request->session()->flash('grupa.id', $grupa->id);
-
-        return redirect()->route('grupas.index');
+        return redirect()->route('grupas.index')->with('success', 'Grupa je kreirana!');
     }
 
     public function show(Request $request, Grupa $grupa)
@@ -43,24 +44,36 @@ class GrupaController extends Controller
 
     public function edit(Request $request, Grupa $grupa)
     {
-        return view('grupa.edit', [
-            'grupa' => $grupa,
-        ]);
+        $vaspitaci = User::where('uloga', 'vaspitac')->get();
+        $negrupisani = Dete::where('grupa_id', null)->get();
+        $grupisani = Dete::where('grupa_id', $grupa->id)->get();
+        return view('grupa.edit', compact('grupa', 'vaspitaci', 'negrupisani', 'grupisani'));
     }
 
     public function update(GrupaUpdateRequest $request, Grupa $grupa)
     {
-        $grupa->update($request->validated());
+        $grupa->update([
+            'naziv' => $request->naziv,
+            'vaspitac_id' => $request->vaspitac_id
+        ]);
 
-        $request->session()->flash('grupa.id', $grupa->id);
+        Dete::where('grupa_id', $grupa->id)->update([
+            'grupa_id' => null
+        ]);
 
-        return redirect()->route('grupas.index');
+        if($request->has('deca')){
+            Dete::whereIn('id', $request->deca)->update([
+                'grupa_id' => $grupa->id
+            ]);
+        }
+
+        return redirect()->route('grupas.show', ['grupa' => $grupa])->with('success', 'Grupa uspešno ažurirana!');
     }
 
     public function destroy(Request $request, Grupa $grupa)
     {
         $grupa->delete();
 
-        return redirect()->route('grupas.index');
+        return redirect()->route('grupas.index')->with('success', 'Grupa je obrisana!');
     }
 }

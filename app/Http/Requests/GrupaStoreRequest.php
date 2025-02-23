@@ -20,7 +20,8 @@ class GrupaStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grupa' => ['required'],
+            'naziv' => ['required', 'string', 'max:255'],
+            'vaspitac_id' => ['string']
         ];
     }
 }

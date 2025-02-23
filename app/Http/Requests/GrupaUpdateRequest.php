@@ -20,7 +20,9 @@ class GrupaUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grupa' => ['required'],
+            'naziv' => ['required', 'string', 'max:255'],
+            'vaspitac_id' => ['required'],
+            'deca' => 'array'
         ];
     }
 }
