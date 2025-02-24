@@ -24,7 +24,7 @@ class PrijavaSeeder extends Seeder
             'prezime_roditelj' => 'Damjanovic',
             'broj_telefona' => '0632453476',
             'jmbg_roditelj' => '2304995276349',
-            'napomene' => 'Alergičan/na na kikiriki, mlečne proizvode, polen, prašinu, ubode insekata.',
+            'napomene' => 'Alergičan na kikiriki, mlečne proizvode, polen, prašinu, ubode insekata.',
             'administrator_id' => 1,
             'status' => 'potvrdjen',
             'datum_prijave' => Carbon::createFromFormat('d.m.Y', '04.06.2024')->toDateString(),

@@ -20,46 +20,46 @@
                     <div class="row justify-content-between">
                         <div class="col-6">
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Ime:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Ime:</label>
+                                <div class="col">
                                     <input type="text" name="ime" class="form-control" value="{{old('ime', $user->ime)}}" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Prezime:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Prezime:</label>
+                                <div class="col">
                                     <input type="text" name="prezime" class="form-control" value="{{old('prezime', $user->prezime)}}" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-4 col-form-label">Broj telefona:</label>
-                                <div class="col-sm-7">
+                                <label class="col-auto col-form-label">Broj telefona:</label>
+                                <div class="col">
                                     <input type="text" name="broj_telefona" class="form-control" value="{{old('broj_telefona', $user->broj_telefona)}}" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Email:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Email:</label>
+                                <div class="col">
                                     <input type="email" name="email" class="form-control" value="{{old('email', $user->email)}}" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-4 col-form-label">Stara lozinka:</label>
-                                <div class="col-sm-7">
+                                <label class="col-auto col-form-label">Stara lozinka:</label>
+                                <div class="col">
                                     <input type="password" name="old_password" class="form-control" placeholder="Unesite staru lozinku" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-4 col-form-label">Nova lozinka:</label>
-                                <div class="col-sm-7">
+                                <label class="col-auto col-form-label">Nova lozinka:</label>
+                                <div class="col">
                                     <input type="password" name="password" class="form-control" placeholder="Unesite novu lozinku">
                                 </div>
                             </div>
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-4 col-form-label">Potvrdi lozinku:</label>
-                                <div class="col-sm-7">
+                                <label class="col-auto col-form-label">Potvrdi lozinku:</label>
+                                <div class="col">
                                     <input type="password" name="password_confirmation" class="form-control" placeholder="Ponovite novu lozinku">
                                 </div>
                             </div>

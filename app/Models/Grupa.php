@@ -27,6 +27,6 @@ class Grupa extends Model
 
     public function evidencije()
     {
-        return $this->hasMany(Evidencija::class);
+        return $this->hasMany(Evidencija::class)->latest('datum');
     }
 }

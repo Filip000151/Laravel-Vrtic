@@ -20,7 +20,18 @@ class EvidencijaStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'evidencija' => ['required'],
+            'grupa_id' => ['required'],
+            'datum' => ['required', 'date'],
+            'deca' => ['required', 'array'],
+            'deca.*.status' => ['required', 'in:odsutan,prisutan,opravdano'],
+            'deca.*.napomena' => ['nullable', 'string']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'deca.required' => 'Evidencija ne može biti kreirana jer grupa nema dece.'
         ];
     }
 }

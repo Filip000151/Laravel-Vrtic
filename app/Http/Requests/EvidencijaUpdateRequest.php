@@ -20,7 +20,10 @@ class EvidencijaUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'evidencija' => ['required'],
+            'datum' => ['required', 'date'],
+            'deca' => ['required', 'array'],
+            'deca.*.status' => ['required', 'in:odsutan,prisutan,opravdano'],
+            'deca.*.napomena' => ['nullable', 'string']
         ];
     }
 }

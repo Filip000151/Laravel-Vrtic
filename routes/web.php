@@ -29,6 +29,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::put('/prijavas/{prijava}/potvrdi', [PrijavaController::class, 'potvrdi'])->name('prijavas.potvrdi');
 Route::put('/prijavas/{prijava}/odbij', [PrijavaController::class, 'odbij'])->name('prijavas.odbij');
 
+Route::get('/grupa/{grupa}/evidencija/create', [EvidencijaController::class, 'create'])->name('evidencija.create');
+
 Route::prefix('/')
     ->middleware('auth')
     ->group(function () {});

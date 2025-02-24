@@ -19,46 +19,46 @@
                     <div class="row justify-content-between">
                         <div class="col-sm-6">
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Ime:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Ime:</label>
+                                <div class="col">
                                     <input type="text" name="ime" class="form-control" placeholder="Unesite ime" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Prezime:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Prezime:</label>
+                                <div class="col">
                                     <input type="text" name="prezime" class="form-control" placeholder="Unesite prezime" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-4 col-form-label">Broj telefona:</label>
-                                <div class="col-sm-7">
+                                <label class="col-auto col-form-label">Broj telefona:</label>
+                                <div class="col">
                                     <input type="text" name="broj_telefona" class="form-control" placeholder="Unesite broj telefona" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group row mb-3 mt-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Email:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Email:</label>
+                                <div class="col">
                                     <input type="email" name="email" class="form-control" placeholder="Unesite email" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-2 col-form-label">Lozinka:</label>
-                                <div class="col-sm-9">
+                                <label class="col-auto col-form-label">Lozinka:</label>
+                                <div class="col">
                                     <input type="password" name="password" class="form-control" placeholder="Unesite lozinku" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="ime_dete" class="col-sm-4 col-form-label">Potvrdi lozinku:</label>
-                                <div class="col-sm-7">
+                                <label class="col-auto col-form-label">Potvrdi lozinku:</label>
+                                <div class="col">
                                     <input type="password" name="password_confirmation" class="form-control" placeholder="Potvrdite lozinku" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-3 align-items-center">
-                                <label for="" class="col-sm-2 col-form-label">Uloga:</label>
-                                <div class="col-sm-9">
+                                <label for="" class="col-auto col-form-label">Uloga:</label>
+                                <div class="col">
                                     <select name="uloga" class="custom-select">
                                         <option value="vaspitac" selected>Vaspitač</option>
                                         <option value="admin">Administrator</option>

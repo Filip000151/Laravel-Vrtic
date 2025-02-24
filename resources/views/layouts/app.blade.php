@@ -94,6 +94,12 @@
                 background-color: #A7E6FF;
                 color: #1FBFFE;
             }
+            .custom-hr{
+                border:solid 1px #3C23AB;
+            }
+            .custom-hr2{
+                border: solid 1px #1FBFFE;
+            }
         </style>
     </head>
     

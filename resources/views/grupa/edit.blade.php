@@ -30,27 +30,39 @@
                             <div class="row justify-content-between mt-5">
                                 <div class="form-group col-auto">
                                     <h3 class="text-center">Deca u ovoj grupi:</h3>
-                                    @foreach($grupisani as $dete)
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="deca[]" value="{{$dete->id}}" checked>{{$dete->ime}} {{$dete->prezime}}
-                                        </label>
-                                    </div>
-                                    @endforeach
+                                    @if($grupisani->isEmpty())
+                                        <div class="alert alert-danger text-center">
+                                            Grupa je prazna.
+                                        </div>
+                                    @else
+                                        @foreach($grupisani as $dete)
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" name="deca[]" value="{{$dete->id}}" checked>{{$dete->ime}} {{$dete->prezime}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="form-group col-auto">
                                     <h3 class="text-center">Negrupisana deca:</h3>
-                                    @foreach($negrupisani as $dete)
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="deca[]" value="{{$dete->id}}">{{$dete->ime}} {{$dete->prezime}}
-                                        </label>
-                                    </div>
-                                    @endforeach
+                                    @if($negrupisani->isEmpty())
+                                        <div class="alert alert-danger text-center">
+                                            Nema dece.
+                                        </div>
+                                    @else
+                                        @foreach($negrupisani as $dete)
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" name="deca[]" value="{{$dete->id}}">{{$dete->ime}} {{$dete->prezime}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
 
-                            <div class="row justify-content-around mt-5">
+                            <div class="row justify-content-around mt-4">
                                 <button class="btn custom-btn" type="submit">Izmeni</button>
                                 <a class="btn custom-btn2" href="{{route('grupas.show', ['grupa' => $grupa])}}">Otkaži</a>
                             </div>
