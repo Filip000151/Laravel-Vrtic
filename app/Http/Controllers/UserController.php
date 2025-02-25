@@ -36,7 +36,7 @@ class UserController extends Controller
             'uloga' => $request['uloga'],
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Korisnik je uspešno registrovan!');
+        return redirect()->route('user.index')->with('success', 'Korisnik je uspešno registrovan!');
     }
 
     public function show(Request $request, User $user)
@@ -48,9 +48,7 @@ class UserController extends Controller
 
     public function edit(Request $request, User $user)
     {
-        return view('user.edit', [
-            'user' => $user,
-        ]);
+        return view('user.edit', compact('user'));
     }
 
     public function update(UserUpdateRequest $request, User $user)
@@ -67,13 +65,13 @@ class UserController extends Controller
 
         $user->update($podaci);
 
-        return redirect()->route('users.index')->with('success', 'Podaci su uspešno ažurirani!');
+        return redirect()->route('user.index')->with('success', 'Podaci su uspešno ažurirani!');
     }
 
     public function destroy(Request $request, User $user)
     {
         $user->delete();
 
-        return redirect()->route('users.index');
+        return redirect()->route('user.index')->with('success', 'Korisnik je uklonjen!');
     }
 }

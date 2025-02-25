@@ -15,11 +15,16 @@ class GrupaController extends Controller
 {
     public function index(Request $request)
     {
-        $grupas = Grupa::all();
+        $user = auth()->user();
 
-        return view('grupa.index', [
-            'grupas' => $grupas,
-        ]);
+        if($user->uloga === 'admin'){
+            $grupe = Grupa::all();
+        }
+        elseif($user->uloga === 'vaspitac'){
+            $grupe = $user->grupe;
+        }
+
+        return view('grupa.index', compact('grupe'));
     }
 
     public function create(Request $request)
@@ -32,14 +37,12 @@ class GrupaController extends Controller
     {
         Grupa::create($request->validated());
 
-        return redirect()->route('grupas.index')->with('success', 'Grupa je kreirana!');
+        return redirect()->route('grupa.index')->with('success', 'Grupa je kreirana!');
     }
 
     public function show(Request $request, Grupa $grupa)
     {
-        return view('grupa.show', [
-            'grupa' => $grupa,
-        ]);
+        return view('grupa.show', compact('grupa'));
     }
 
     public function edit(Request $request, Grupa $grupa)
@@ -67,13 +70,13 @@ class GrupaController extends Controller
             ]);
         }
 
-        return redirect()->route('grupas.show', ['grupa' => $grupa])->with('success', 'Grupa uspešno ažurirana!');
+        return redirect()->route('grupa.show', ['grupa' => $grupa])->with('success', 'Grupa uspešno ažurirana!');
     }
 
     public function destroy(Request $request, Grupa $grupa)
     {
         $grupa->delete();
 
-        return redirect()->route('grupas.index')->with('success', 'Grupa je obrisana!');
+        return redirect()->route('grupa.index')->with('success', 'Grupa je obrisana!');
     }
 }

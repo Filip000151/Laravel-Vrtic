@@ -56,12 +56,12 @@
                 </div>
                 @if($prijava->status == 'nepotvrdjen')
                 <div class="row mt-5 justify-content-end">
-                    <form class="col-sm-1" method="POST" action="{{route('prijavas.odbij', ['prijava' => $prijava->id])}}" onsubmit="return confirm('Odbij prijavu?');">
+                    <form class="col-sm-1" method="POST" action="{{route('prijava.odbij', ['prijava' => $prijava->id])}}" onsubmit="return confirm('Odbij prijavu?');">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn custom-btn2">Odbij</button>
                     </form>
-                    <form class="col-sm-1" method="POST" action="{{route('prijavas.potvrdi', ['prijava' => $prijava->id])}}" onsubmit="return confirm('Potvrdi prijavu?');">
+                    <form class="col-sm-1" method="POST" action="{{route('prijava.potvrdi', ['prijava' => $prijava->id])}}" onsubmit="return confirm('Potvrdi prijavu?');">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn custom-btn">Potvrdi</button>

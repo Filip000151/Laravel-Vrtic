@@ -4,9 +4,9 @@
     <div class="container">
 
         <div class="row justify-content-end">
-            <a href="{{route('evidencijas.edit', ['evidencija' => $evidencija])}}" class="btn custom-btn mr-3">Izmeni</a>
+            <a href="{{route('evidencija.edit', ['evidencija' => $evidencija])}}" class="btn custom-btn mr-3">Izmeni</a>
             @if(Auth::user()->uloga == 'admin')
-            <form method="POST" action="{{route('evidencijas.destroy', ['evidencija' => $evidencija])}}" onsubmit="return confirm('Obriši evidenciju?');">
+            <form method="POST" action="{{route('evidencija.destroy', ['evidencija' => $evidencija])}}" onsubmit="return confirm('Obriši evidenciju?');">
                 @csrf
                 @method('DELETE')
                 <button class="btn custom-btn2">Obriši</button>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DeteStoreRequest;
 use App\Http\Requests\DeteUpdateRequest;
 use App\Models\Dete;
 use App\Models\Roditelj;
@@ -28,25 +27,9 @@ class DeteController extends Controller
         return view('dete.index', ['deca' => $deca->get(), 'grupa' => $grupa]);
     }
 
-    public function create(Request $request)
-    {
-        return view('dete.create');
-    }
-
-    public function store(DeteStoreRequest $request)
-    {
-        $dete = Dete::create($request->validated());
-
-        $request->session()->flash('dete.id', $dete->id);
-
-        return redirect()->route('detes.index');
-    }
-
     public function show(Request $request, Dete $dete)
     {
-        return view('dete.show', [
-            'dete' => $dete,
-        ]);
+        return view('dete.show', compact('dete'));
     }
 
     public function edit(Request $request, Dete $dete)
@@ -83,7 +66,7 @@ class DeteController extends Controller
             ]);
         }
 
-        return redirect()->route('detes.index')->with('success', 'Dete je ažurirano!');
+        return redirect()->route('dete.index')->with('success', 'Dete je ažurirano!');
     }
 
     public function destroy(Request $request, Dete $dete)
@@ -106,6 +89,6 @@ class DeteController extends Controller
             'status' => 'ispisan'
         ]);
 
-        return redirect()->route('detes.index')->with('success', 'Dete je ispisano!');
+        return redirect()->route('dete.index')->with('success', 'Dete je ispisano!');
     }
 }

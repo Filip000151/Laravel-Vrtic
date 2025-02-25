@@ -18,7 +18,7 @@
                         @endif
                     </div>
                     <div class="col-sm-6">
-                        <p>Roditelj: <a href="{{route('roditeljs.show', ['roditelj' => $dete->roditelj])}}" class="font-weight-bold link">{{$dete->roditelj->ime}} {{$dete->roditelj->prezime}}</a></p>
+                        <p>Roditelj: <a href="{{route('roditelj.show', ['roditelj' => $dete->roditelj])}}" class="font-weight-bold link">{{$dete->roditelj->ime}} {{$dete->roditelj->prezime}}</a></p>
                         @if(is_null($dete->grupa))
                         <p>Grupa: <inline class="text-danger">Negrupisan!</inline></p>
                         @else
@@ -30,10 +30,10 @@
                 @if(Auth::user()->uloga == 'admin')
                 <div class="row justify-content-around">
                     <div class="col-auto">
-                        <a class="btn custom-btn" href="{{route('detes.edit', ['dete' => $dete])}}">Izmeni</a>
+                        <a class="btn custom-btn" href="{{route('dete.edit', ['dete' => $dete])}}">Izmeni</a>
                     </div>
                     <div class="col-auto">
-                        <form action="{{route('detes.destroy', ['dete' => $dete])}}" method="POST" onsubmit="return confirm('Ispiši dete?');">
+                        <form action="{{route('dete.destroy', ['dete' => $dete])}}" method="POST" onsubmit="return confirm('Ispiši dete?');">
                             @csrf
                             @method('DELETE')
                             <button class="btn custom-btn2" type="submit">Ispiši</button>

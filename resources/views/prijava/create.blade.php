@@ -91,7 +91,7 @@
             @endif
 
             <div style="background-color: #9DFF65; font-size: 16px;" class="mt-5 mb-3 ml-3 mr-3 custom-border">
-                <form method="POST" action="{{route('prijavas.store')}}" onsubmit="return confirm('Podnesi prijavu?');">
+                <form method="POST" action="{{route('prijava.store')}}" onsubmit="return confirm('Podnesi prijavu?');">
                     @csrf
                     <div class="row pl-4 pr-4 pt-4">
                         <div class="col-6">

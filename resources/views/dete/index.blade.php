@@ -6,10 +6,10 @@
 
         <ul style="font-size: 16px" class="nav nav-tabs justify-content-center mt-5">
             <li class="nav-item">
-                <a class="nav-link custom-link {{$grupa === 'negrupisana' ? 'active disabled' : ''}}" href="{{route('detes.index', ['grupa' => 'negrupisana'])}}">Negrupisana</a>
+                <a class="nav-link custom-link {{$grupa === 'negrupisana' ? 'active disabled' : ''}}" href="{{route('dete.index', ['grupa' => 'negrupisana'])}}">Negrupisana</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link custom-link {{$grupa === 'grupisana' ? 'active disabled' : ''}}" href="{{route('detes.index', ['grupa' => 'grupisana'])}}">Grupisana</a>
+                <a class="nav-link custom-link {{$grupa === 'grupisana' ? 'active disabled' : ''}}" href="{{route('dete.index', ['grupa' => 'grupisana'])}}">Grupisana</a>
             </li>
         </ul>
 
@@ -22,7 +22,7 @@
                 @else
                 <div class="list-group">
                     @foreach($deca as $dete)
-                    <a class="list-group-item list-group-item-action" href="{{route('detes.show', ['dete' => $dete])}}">{{$dete->ime}} {{$dete->prezime}}</a>
+                    <a class="list-group-item list-group-item-action" href="{{route('dete.show', ['dete' => $dete])}}">{{$dete->ime}} {{$dete->prezime}}</a>
                     @endforeach
                 </div>
                 @endif

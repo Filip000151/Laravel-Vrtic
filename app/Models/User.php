@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function prijave()
     {
-        return $this->hasMany(Prijava::class, 'administrator_id');
+        return $this->hasMany(Prijava::class, 'administrator_id')->latest('datum_prijave');
     }
 
     public function isSuperAdmin(): bool

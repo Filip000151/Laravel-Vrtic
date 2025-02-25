@@ -16,7 +16,7 @@
 
         <div class="row justify-content-center">
             <div style="background-color: #60D2FF;" class="col-sm-9 p-4 mt-4">
-                <form method="POST" action="{{route('roditeljs.update', ['roditelj' => $roditelj])}}">
+                <form method="POST" action="{{route('roditelj.update', ['roditelj' => $roditelj])}}">
                     @csrf
                     @method('PUT')
                     <div class="row justify-content-center">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row justify-content-around mt-4">
                         <button type="submit" class="btn custom-btn">Izmeni</button>
-                        <a class="btn custom-btn2" href="{{route('roditeljs.show', ['roditelj' => $roditelj])}}">Otkaži</a>
+                        <a class="btn custom-btn2" href="{{route('roditelj.show', ['roditelj' => $roditelj])}}">Otkaži</a>
                     </div>
                 </form>
             </div>

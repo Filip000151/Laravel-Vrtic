@@ -5,7 +5,7 @@
         <h2 class="h1 text-center">{{$roditelj->ime}} {{$roditelj->prezime}}</h2>
         @if(Auth::user()->uloga == 'admin')
         <div class="row justify-content-center mt-4">
-            <a class="btn custom-btn" href="{{route('roditeljs.edit', ['roditelj' => $roditelj])}}">Izmeni</a>
+            <a class="btn custom-btn" href="{{route('roditelj.edit', ['roditelj' => $roditelj])}}">Izmeni</a>
         </div>
         @endif
         <div class="row justify-content-center">
@@ -22,7 +22,7 @@
                 <div class="row p-3 justify-content-center">
                     <div class="list-group">
                         @foreach($roditelj->deca as $dete)
-                        <a class="list-group-item list-group-item-action" href="{{route('detes.show', ['dete' => $dete])}}">{{$dete->ime}} {{$dete->prezime}}</a>
+                        <a class="list-group-item list-group-item-action" href="{{route('dete.show', ['dete' => $dete])}}">{{$dete->ime}} {{$dete->prezime}}</a>
                         @endforeach
                     </div>
                 </div>

@@ -45,4 +45,16 @@ class LoginController extends Controller
             'login' => 'Pogrešan email ili lozinka. Pokušajte ponovo!'
         ]);
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if($user->uloga === 'admin'){
+            return redirect('/home');
+        }
+        elseif($user->uloga == 'vaspitac'){
+            return redirect()->route('grupa.index');
+        }
+
+        return redirect('/');
+    }
 }

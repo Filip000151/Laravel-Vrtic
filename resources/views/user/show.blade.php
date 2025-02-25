@@ -33,7 +33,7 @@
                                 </div>
                             @else
                                 @foreach($user->grupe as $grupa)
-                                <a href="{{route('grupas.show', ['grupa' => $grupa])}}" class="list-group-item list-group-item-action text-center">{{$grupa->naziv}}</a>
+                                <a href="{{route('grupa.show', ['grupa' => $grupa])}}" class="list-group-item list-group-item-action text-center">{{$grupa->naziv}}</a>
                                 @endforeach
                             @endif
                         @else
@@ -43,7 +43,7 @@
                                 </div>
                             @else
                                 @foreach($user->prijave as $prijava)
-                                <a href="{{route('prijavas.show', ['prijava' => $prijava])}}" class="list-group-item list-group-item-action text-center">
+                                <a href="{{route('prijava.show', ['prijava' => $prijava])}}" class="list-group-item list-group-item-action text-center">
                                     @if($prijava->status == 'potvrdjen' || $prijava->status == 'ispisan')
                                     (✓) {{$prijava->ime_dete}} {{$prijava->prezime_dete}} - {{$prijava->datum_prijave->format('d.m.Y.')}}
                                     @else

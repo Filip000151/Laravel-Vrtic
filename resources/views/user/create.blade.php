@@ -14,7 +14,7 @@
 
         <div class="row justify-content-center mt-4">
             <div style="background-color: #60D2FF;" class="col-sm-10 p-4">
-                <form method="POST" action="{{route('users.store')}}">
+                <form method="POST" action="{{route('user.store')}}">
                     @csrf
                     <div class="row justify-content-between">
                         <div class="col-sm-6">
@@ -69,7 +69,7 @@
                     </div>
                     <div class="row justify-content-center mt-4">
                         <button class="btn custom-btn col-sm-2 mr-3" type="submit">Registruj</button>
-                        <a href="{{route('users.index')}}" class="btn custom-btn2 col-sm-2 ml-3">Otkaži</a>
+                        <a href="{{route('user.index')}}" class="btn custom-btn2 col-sm-2 ml-3">Otkaži</a>
                     </div>
                 </form>
             </div>

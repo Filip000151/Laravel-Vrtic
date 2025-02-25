@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RoditeljStoreRequest;
 use App\Http\Requests\RoditeljUpdateRequest;
 use App\Models\Roditelj;
 use Illuminate\Http\RedirectResponse;
@@ -15,50 +14,23 @@ class RoditeljController extends Controller
     {
         $roditelji = Roditelj::all();
 
-        return view('roditelj.index', [
-            'roditelji' => $roditelji,
-        ]);
-    }
-
-    public function create(Request $request)
-    {
-        return view('roditelj.create');
-    }
-
-    public function store(RoditeljStoreRequest $request)
-    {
-        $roditelj = Roditelj::create($request->validated());
-
-        $request->session()->flash('roditelj.id', $roditelj->id);
-
-        return redirect()->route('roditeljs.index');
+        return view('roditelj.index', compact('roditelji'));
     }
 
     public function show(Request $request, Roditelj $roditelj)
     {
-        return view('roditelj.show', [
-            'roditelj' => $roditelj,
-        ]);
+        return view('roditelj.show', compact('roditelj'));
     }
 
     public function edit(Request $request, Roditelj $roditelj)
     {
-        return view('roditelj.edit', [
-            'roditelj' => $roditelj,
-        ]);
+        return view('roditelj.edit', compact('roditelj'));
     }
 
     public function update(RoditeljUpdateRequest $request, Roditelj $roditelj)
     {
         $roditelj->update($request->validated());
 
-        return redirect()->route('roditeljs.index')->with('success', 'Roditelj je izmenjen!');
-    }
-
-    public function destroy(Request $request, Roditelj $roditelj)
-    {
-        $roditelj->delete();
-
-        return redirect()->route('roditeljs.index');
+        return redirect()->route('roditelj.index')->with('success', 'Roditelj je izmenjen!');
     }
 }

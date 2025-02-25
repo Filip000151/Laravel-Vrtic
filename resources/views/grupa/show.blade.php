@@ -9,11 +9,11 @@
             <div class="col-sm-5 mt-4">
                 <div class="row justify-content-around">
                     @if(Auth::user()->uloga == 'admin')
-                    <a class="btn custom-btn" href="{{route('grupas.edit', ['grupa' => $grupa])}}">Izmeni</a>
+                    <a class="btn custom-btn" href="{{route('grupa.edit', ['grupa' => $grupa])}}">Izmeni</a>
                     @endif
                     <a class="btn custom-btn3" href="{{route('evidencija.create', ['grupa' => $grupa])}}">Napravi evidenciju</a>
                     @if(Auth::user()->uloga == 'admin')
-                    <form method="POST" action="{{route('grupas.destroy', ['grupa' => $grupa])}}" onsubmit="return confirm('Obriši grupu?');">
+                    <form method="POST" action="{{route('grupa.destroy', ['grupa' => $grupa])}}" onsubmit="return confirm('Obriši grupu?');">
                         @csrf
                         @method('DELETE')
                         <button class="btn custom-btn2" type="submit">Ukloni</button>
@@ -25,10 +25,10 @@
 
         <ul style="font-size: 16px" class="nav nav-tabs justify-content-center mt-5">
             <li class="nav-item">
-                <a href="{{route('grupas.show', ['grupa' => $grupa, 'tab' => 'deca'])}}" class="nav-link custom-link {{request('tab', 'deca') == 'deca' ? 'active disabled' : ''}}">Deca</a>
+                <a href="{{route('grupa.show', ['grupa' => $grupa, 'tab' => 'deca'])}}" class="nav-link custom-link {{request('tab', 'deca') == 'deca' ? 'active disabled' : ''}}">Deca</a>
             </li>
             <li class="nav-item">
-                <a href="{{route('grupas.show', ['grupa' => $grupa, 'tab' => 'evidencije'])}}" class="nav-link custom-link {{request('tab') == 'evidencije' ? 'active disabled' : ''}}">Evidencije</a>
+                <a href="{{route('grupa.show', ['grupa' => $grupa, 'tab' => 'evidencije'])}}" class="nav-link custom-link {{request('tab') == 'evidencije' ? 'active disabled' : ''}}">Evidencije</a>
             </li>
         </ul>
         
@@ -45,7 +45,7 @@
                 @else
                 <div class="list-group">
                     @foreach($grupa->deca as $dete)
-                    <a class="list-group-item list-group-item-action text-center" href="{{route('detes.show', ['dete' => $dete])}}">{{$dete->ime}} {{$dete->prezime}}</a>
+                    <a class="list-group-item list-group-item-action text-center" href="{{route('dete.show', ['dete' => $dete])}}">{{$dete->ime}} {{$dete->prezime}}</a>
                     @endforeach
                 </div>
                 @endif
@@ -64,7 +64,7 @@
                 @else
                 <div class="list-group">
                     @foreach($grupa->evidencije as $evidencija)
-                    <a class="list-group-item list-group-item-action text-center" href="{{route('evidencijas.show', ['evidencija' => $evidencija])}}">{{$evidencija->datum->format('d.m.Y.')}}</a>
+                    <a class="list-group-item list-group-item-action text-center" href="{{route('evidencija.show', ['evidencija' => $evidencija])}}">{{$evidencija->datum->format('d.m.Y.')}}</a>
                     @endforeach
                 </div>
                 @endif

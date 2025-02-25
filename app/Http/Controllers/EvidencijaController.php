@@ -12,14 +12,6 @@ use Illuminate\View\View;
 
 class EvidencijaController extends Controller
 {
-    public function index(Request $request)
-    {
-        $evidencijas = Evidencija::all();
-
-        return view('evidencija.index', [
-            'evidencijas' => $evidencijas
-        ]);
-    }
 
     public function create(Request $request, Grupa $grupa)
     {
@@ -40,21 +32,17 @@ class EvidencijaController extends Controller
             ]);
         }
 
-        return redirect()->route('grupas.show', ['grupa' => $request->grupa_id])->with('success', 'Evidencija uspešno napravljena!');
+        return redirect()->route('grupa.show', ['grupa' => $request->grupa_id])->with('success', 'Evidencija uspešno napravljena!');
     }
 
     public function show(Request $request, Evidencija $evidencija)
     {
-        return view('evidencija.show', [
-            'evidencija' => $evidencija,
-        ]);
+        return view('evidencija.show', compact('evidencija'));
     }
 
     public function edit(Request $request, Evidencija $evidencija)
     {
-        return view('evidencija.edit', [
-            'evidencija' => $evidencija,
-        ]);
+        return view('evidencija.edit', compact('evidencija'));
     }
 
     public function update(EvidencijaUpdateRequest $request, Evidencija $evidencija)
@@ -74,7 +62,7 @@ class EvidencijaController extends Controller
 
         $evidencija->deca()->sync($prisustva);
 
-        return redirect()->route('grupas.show', ['grupa' => $evidencija->grupa, 'tab' => 'evidencije'])->with('success', 'Evidencija uspešno izmenjena!');
+        return redirect()->route('grupa.show', ['grupa' => $evidencija->grupa, 'tab' => 'evidencije'])->with('success', 'Evidencija uspešno izmenjena!');
     }
 
     public function destroy(Request $request, Evidencija $evidencija)
@@ -82,6 +70,6 @@ class EvidencijaController extends Controller
         $grupa = $evidencija->grupa;
         $evidencija->delete();
 
-        return redirect()->route('grupas.show', ['grupa' => $grupa, 'tab' => 'evidencije'])->with('success', 'Evidencija je obrisana!');
+        return redirect()->route('grupa.show', ['grupa' => $grupa, 'tab' => 'evidencije'])->with('success', 'Evidencija je obrisana!');
     }
 }

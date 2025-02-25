@@ -7,7 +7,7 @@
 
         <div class="row justify-content-center">
             <div style="background-color: #60D2FF; font-size: 20px;" class="col-sm-9 p-4 mt-4">
-                <form method="POST" action="{{route('evidencijas.update', ['evidencija' => $evidencija])}}">
+                <form method="POST" action="{{route('evidencija.update', ['evidencija' => $evidencija])}}">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="grupa_id" value="{{$evidencija->grupa->id}}">
@@ -53,7 +53,7 @@
 
                     <div class="row justify-content-around mt-5">
                         <button type="submit" class="btn custom-btn">Potvrdi</button>
-                        <a href="{{route('grupas.show', ['grupa' => $evidencija->grupa])}}" class="btn custom-btn2">Otkaži</a>
+                        <a href="{{route('grupa.show', ['grupa' => $evidencija->grupa])}}" class="btn custom-btn2">Otkaži</a>
                     </div>
 
                 </form>

@@ -6,7 +6,7 @@
 
         <div class="row justify-content-center">
             <div style="background-color: #60D2FF;" class="col-sm-9 mt-4 p-4">
-                <form action="{{route('grupas.update', ['grupa' => $grupa])}}" method="POST">
+                <form action="{{route('grupa.update', ['grupa' => $grupa])}}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row justify-content-center">
@@ -64,7 +64,7 @@
 
                             <div class="row justify-content-around mt-4">
                                 <button class="btn custom-btn" type="submit">Izmeni</button>
-                                <a class="btn custom-btn2" href="{{route('grupas.show', ['grupa' => $grupa])}}">Otkaži</a>
+                                <a class="btn custom-btn2" href="{{route('grupa.show', ['grupa' => $grupa])}}">Otkaži</a>
                             </div>
                         </div>
                     </div>

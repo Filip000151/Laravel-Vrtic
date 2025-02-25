@@ -13,7 +13,7 @@
                 @else
                 <div class="list-group">
                     @foreach($roditelji as $roditelj)
-                    <a class="list-group-item list-group-item-action" href="{{route('roditeljs.show', ['roditelj' => $roditelj])}}">{{$roditelj->ime}} {{$roditelj->prezime}}</a>
+                    <a class="list-group-item list-group-item-action" href="{{route('roditelj.show', ['roditelj' => $roditelj])}}">{{$roditelj->ime}} {{$roditelj->prezime}}</a>
                     @endforeach
                 </div>
                 @endif

@@ -4,19 +4,19 @@
 
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('prijavas') ? 'active' : '' }}" href="{{route('prijavas.index')}}">Prijave</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('prijava') ? 'active' : '' }}" href="{{route('prijava.index')}}">Prijave</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('users') ? 'active' : '' }}" href="{{route('users.index')}}">Korisnici</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('user') ? 'active' : '' }}" href="{{route('user.index')}}">Korisnici</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('detes') ? 'active' : '' }}" href="{{route('detes.index')}}">Deca</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('dete') ? 'active' : '' }}" href="{{route('dete.index')}}">Deca</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('roditeljs') ? 'active' : '' }}" href="{{route('roditeljs.index')}}">Roditelji</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('roditelj') ? 'active' : '' }}" href="{{route('roditelj.index')}}">Roditelji</a>
         </li>
         <li class="nav-item">
-            <a style="color: #3C23AB" class="nav-link {{ Request::is('grupas') ? 'active' : '' }}" href="{{route('grupas.index')}}">Grupe</a>
+            <a style="color: #3C23AB" class="nav-link {{ Request::is('grupa') ? 'active' : '' }}" href="{{route('grupa.index')}}">Grupe</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -33,7 +33,7 @@
         </li>
     </ul>
     @else
-    <a style="color: #3C23AB" class="navbar-brand" href="{{route('home')}}">Sunshine Kidz</a>
+    <a style="color: #3C23AB" class="navbar-brand" href="{{route('grupa.index')}}">Sunshine Kidz</a>
 
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">

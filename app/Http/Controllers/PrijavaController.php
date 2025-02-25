@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PrijavaStoreRequest;
-use App\Http\Requests\PrijavaUpdateRequest;
 use App\Models\Prijava;
 use App\Models\Dete;
 use App\Models\Roditelj;
@@ -35,30 +34,12 @@ class PrijavaController extends Controller
 
         session()->flash('success', 'Prijava je uspešno podneta!');
 
-        return redirect()->route('prijavas.create');
+        return redirect()->route('prijava.create');
     }
 
     public function show(Request $request, Prijava $prijava)
     {
-        return view('prijava.show', [
-            'prijava' => $prijava,
-        ]);
-    }
-
-    public function edit(Request $request, Prijava $prijava)
-    {
-        return view('prijava.edit', [
-            'prijava' => $prijava,
-        ]);
-    }
-
-    public function update(PrijavaUpdateRequest $request, Prijava $prijava)
-    {
-        $prijava->update($request->validated());
-
-        $request->session()->flash('prijava.id', $prijava->id);
-
-        return redirect()->route('prijavas.index');
+        return view('prijava.show', compact('prijava'));
     }
 
     public function odbij(Prijava $prijava){
@@ -67,7 +48,7 @@ class PrijavaController extends Controller
             'administrator_id' => auth()->id()
         ]);
 
-        return redirect()->route('prijavas.index', ['status' => 'odbijen'])->with('success', 'Prijava je odbijena!');
+        return redirect()->route('prijava.index', ['status' => 'odbijen'])->with('success', 'Prijava je odbijena!');
     }
 
     public function potvrdi(Prijava $prijava){
@@ -107,18 +88,11 @@ class PrijavaController extends Controller
 
             DB::commit();
 
-            return redirect()->route('prijavas.index', ['status' => 'potvrdjen'])->with('success', 'Prijava je uspešno potvrđena!');
+            return redirect()->route('prijava.index', ['status' => 'potvrdjen'])->with('success', 'Prijava je uspešno potvrđena!');
         } 
         catch(\Exception $e){
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Desila se greška!']);
         }
-    }
-
-    public function destroy(Request $request, Prijava $prijava)
-    {
-        $prijava->delete();
-
-        return redirect()->route('prijavas.index');
     }
 }

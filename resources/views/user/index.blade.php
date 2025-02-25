@@ -3,15 +3,15 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-end">
-            <a class="btn custom-btn" href="{{route('users.create')}}">Registruj korisnika</a>
+            <a class="btn custom-btn" href="{{route('user.create')}}">Registruj korisnika</a>
         </div>
         <h2 class="text-center">Korisnici</h2>
         <ul style="font-size: 16px" class="nav nav-tabs justify-content-center mt-5">
             <li class="nav-item">
-                <a class="nav-link custom-link {{$uloga === 'vaspitac' ? 'active disabled' : ''}}" href="{{route('users.index', ['uloga' => 'vaspitac'])}}">Vaspitači</a>
+                <a class="nav-link custom-link {{$uloga === 'vaspitac' ? 'active disabled' : ''}}" href="{{route('user.index', ['uloga' => 'vaspitac'])}}">Vaspitači</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link custom-link {{$uloga === 'admin' ? 'active disabled' : ''}}" href="{{route('users.index', ['uloga' => 'admin'])}}">Administratori</a>
+                <a class="nav-link custom-link {{$uloga === 'admin' ? 'active disabled' : ''}}" href="{{route('user.index', ['uloga' => 'admin'])}}">Administratori</a>
             </li>
         </ul>
 
@@ -27,12 +27,12 @@
                     @foreach($users as $user)
                     <div class="card custom-card m-3">
                         <div class="card-header text-center">
-                            <a class="link custom-link2" href="{{route('users.show', ['user' => $user])}}">{{$user->ime}} {{$user->prezime}}</a>
+                            <a class="link custom-link2" href="{{route('user.show', ['user' => $user])}}">{{$user->ime}} {{$user->prezime}}</a>
                         </div>
                         <div class="card-body d-flex justify-content-around">
-                            <a class="btn custom-btn m-2" href="{{route('users.edit', ['user' => $user])}}">Izmeni</a>
+                            <a class="btn custom-btn m-2" href="{{route('user.edit', ['user' => $user])}}">Izmeni</a>
                             @if($user->uloga == 'vaspitac')
-                            <form method="POST" action="{{route('users.destroy', ['user' => $user])}}" onsubmit="return confirm('Ukloni korisnika?');">
+                            <form method="POST" action="{{route('user.destroy', ['user' => $user])}}" onsubmit="return confirm('Ukloni korisnika?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn custom-btn2 m-2">Ukloni</button>

@@ -5,16 +5,16 @@
         <h2 class="text-center">Prijave</h2>
         <ul style="font-size: 16px" class="nav nav-tabs justify-content-center mt-5">
             <li class="nav-item">
-                <a class="nav-link custom-link {{$status === 'nepotvrdjen' ? 'active disabled' : ''}}" href="{{route('prijavas.index', ['status' => 'nepotvrdjen'])}}">Nepotvrđene</a>
+                <a class="nav-link custom-link {{$status === 'nepotvrdjen' ? 'active disabled' : ''}}" href="{{route('prijava.index', ['status' => 'nepotvrdjen'])}}">Nepotvrđene</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link custom-link {{$status === 'potvrdjen' ? 'active disabled' : ''}}" href="{{route('prijavas.index', ['status' => 'potvrdjen'])}}">Potvrđene</a>
+                <a class="nav-link custom-link {{$status === 'potvrdjen' ? 'active disabled' : ''}}" href="{{route('prijava.index', ['status' => 'potvrdjen'])}}">Potvrđene</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link custom-link {{$status === 'odbijen' ? 'active disabled' : ''}}" href="{{route('prijavas.index', ['status' => 'odbijen'])}}">Odbijene</a>
+                <a class="nav-link custom-link {{$status === 'odbijen' ? 'active disabled' : ''}}" href="{{route('prijava.index', ['status' => 'odbijen'])}}">Odbijene</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link custom-link {{$status === 'ispisan' ? 'active disabled' : ''}}" href="{{route('prijavas.index', ['status' => 'ispisan'])}}">Ispisan</a>
+                <a class="nav-link custom-link {{$status === 'ispisan' ? 'active disabled' : ''}}" href="{{route('prijava.index', ['status' => 'ispisan'])}}">Ispisan</a>
             </li>
         </ul>
 
@@ -42,7 +42,7 @@
                             <td>{{$prijava->datum_prijave->format('d.m.Y.')}}</td>
                             <td>{{$prijava->ime_dete}}</td>
                             <td>{{$prijava->prezime_dete}}</td>
-                            <td><a class="btn custom-btn" href="{{route('prijavas.show', ['prijava' => $prijava])}}">Detaljnije</a></td>
+                            <td><a class="btn custom-btn" href="{{route('prijava.show', ['prijava' => $prijava])}}">Detaljnije</a></td>
                         </tr>
                         @endforeach
                     </tbody>

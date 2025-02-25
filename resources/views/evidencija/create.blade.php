@@ -15,7 +15,7 @@
 
         <div class="row justify-content-center">
             <div style="background-color: #60D2FF; font-size: 20px;" class="col-sm-9 p-4 mt-4">
-                <form method="POST" action="{{route('evidencijas.store')}}">
+                <form method="POST" action="{{route('evidencija.store')}}">
                     @csrf
                     <input type="hidden" name="grupa_id" value="{{$grupa->id}}">
                     <div class="form-group row mb-3 mt-3 align-items-center">
@@ -71,7 +71,7 @@
 
                     <div class="row justify-content-around mt-5">
                         <button type="submit" class="btn custom-btn">Potvrdi</button>
-                        <a href="{{route('grupas.show', ['grupa' => $grupa])}}" class="btn custom-btn2">Otkaži</a>
+                        <a href="{{route('grupa.show', ['grupa' => $grupa])}}" class="btn custom-btn2">Otkaži</a>
                     </div>
 
                 </form>

@@ -45,6 +45,10 @@ class Kernel extends HttpKernel
         ],
     ];
 
+    protected $routeMiddleware = [
+        'uloga' => \App\Http\Middleware\UlogaMiddleware::class
+    ];
+
     /**
      * The application's middleware aliases.
      *

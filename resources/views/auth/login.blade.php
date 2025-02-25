@@ -58,7 +58,7 @@
     <body>
         <div class="container mt-3">
             <div class="d-flex  justify-content-end mt-3">
-                <a href="{{route('prijavas.create')}}" class="btn custom-btn pl-4 pr-4">Prijava</a>
+                <a href="{{route('prijava.create')}}" class="btn custom-btn pl-4 pr-4">Prijava</a>
             </div>
             <h2 style="color: #3C23AB;" class="text-center display-1">Sunshine Kidz</h2>
             @if ($errors->has('login'))

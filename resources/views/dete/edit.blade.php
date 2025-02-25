@@ -16,7 +16,7 @@
 
         <div class="row justify-content-center">
             <div style="background-color: #60D2FF;" class="col-sm-9 mt-4 p-4">
-                <form action="{{route('detes.update', ['dete' => $dete])}}" method="POST">
+                <form action="{{route('dete.update', ['dete' => $dete])}}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -78,7 +78,7 @@
                             <button class="btn custom-btn" type="submit">Izmeni</button>
                         </div>
                         <div class="col-auto">
-                            <a class="btn custom-btn2" href="{{route('detes.show', ['dete' => $dete])}}">Otkaži</a>
+                            <a class="btn custom-btn2" href="{{route('dete.show', ['dete' => $dete])}}">Otkaži</a>
                         </div>
                     </div>
                 </form>
