@@ -42,6 +42,11 @@ class GrupaController extends Controller
 
     public function show(Request $request, Grupa $grupa)
     {
+        if(auth()->user()->uloga === 'vaspitac'){
+            if(auth()->user()->id !== $grupa->vaspitac_id) {
+                abort(403, 'Nemate pravo pristupa ovoj grupi');
+            }
+        }
         return view('grupa.show', compact('grupa'));
     }
 

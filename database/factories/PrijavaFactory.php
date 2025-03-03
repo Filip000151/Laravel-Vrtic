@@ -26,14 +26,14 @@ class PrijavaFactory extends Factory
             'ime_dete' => $this->faker->text(255),
             'prezime_dete' => $this->faker->text(255),
             'datum_rodjenja' => $this->faker->date(),
-            'jmbg_dete' => $this->faker->text(255),
+            'jmbg_dete' => $this->faker->numerify('#############'),
             'ime_roditelj' => $this->faker->text(255),
             'prezime_roditelj' => $this->faker->text(255),
-            'broj_telefona' => $this->faker->text(255),
-            'jmbg_roditelj' => $this->faker->text(255),
+            'broj_telefona' => $this->faker->numerify('##########'),
+            'jmbg_roditelj' => $this->faker->numerify('#############'),
             'napomene' => $this->faker->text(),
             'datum_prijave' => $this->faker->date(),
-            'status' => $this->faker->word(),
+            'status' => $this->faker->randomElement(['nepotvrdjen', 'potvrdjen', 'odbijen', 'ispisan']),
             'administrator_id' => \App\Models\User::factory(),
         ];
     }

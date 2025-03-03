@@ -21,6 +21,7 @@ use App\Http\Controllers\GrupaController;
 */
 
 Route::get('/', [PrijavaController::class, 'create'])->name('prijava.create');
+Route::post('/prijava', [PrijavaController::class, 'store'])->name('prijava.store');
 
 Route::middleware(['auth', 'uloga:admin'])->group(function(){
 
@@ -33,7 +34,6 @@ Route::middleware(['auth', 'uloga:admin'])->group(function(){
         Route::prefix('prijava')->group(function(){
             Route::controller(PrijavaController::class)->group(function(){
                 Route::get('/', 'index')->name('index');
-                Route::post('/', 'store')->name('store');
                 Route::get('/{prijava}', 'show')->name('show');
                 Route::put('/{prijava}/odbij', 'odbij')->name('odbij');
                 Route::put('/{prijava}/potvrdi', 'potvrdi')->name('potvrdi');

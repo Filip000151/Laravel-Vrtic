@@ -15,6 +15,11 @@ class EvidencijaController extends Controller
 
     public function create(Request $request, Grupa $grupa)
     {
+        if(auth()->user()->uloga === 'vaspitac'){
+            if(auth()->user()->id !== $grupa->vaspitac_id) {
+                abort(403, 'Nemate pravo pristupa ovoj grupi');
+            }
+        }
         return view('evidencija.create', compact('grupa'));
     }
 
@@ -42,6 +47,11 @@ class EvidencijaController extends Controller
 
     public function edit(Request $request, Evidencija $evidencija)
     {
+        if(auth()->user()->uloga === 'vaspitac'){
+            if(auth()->user()->id !== $evidencija->grupa->vaspitac->id) {
+                abort(403, 'Nemate pravo pristupa ovoj evidenciji');
+            }
+        }
         return view('evidencija.edit', compact('evidencija'));
     }
 

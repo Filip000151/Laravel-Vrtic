@@ -3,9 +3,10 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Grupa;
+use App\Models\User;
+use App\Models\Dete;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use JMac\Testing\Traits\AdditionalAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -14,112 +15,118 @@ use Tests\TestCase;
  */
 final class GrupaControllerTest extends TestCase
 {
-    use AdditionalAssertions, RefreshDatabase, WithFaker;
+    use RefreshDatabase;
 
-    #[Test]
-    public function index_displays_view(): void
+    /** @test */
+    public function admin_moze_videti_sve_grupe() : void
     {
-        $grupas = Grupa::factory()->count(3)->create();
+        $admin = User::factory()->create(['uloga' => 'admin']);
 
-        $response = $this->get(route('grupas.index'));
+        $grupe = Grupa::factory(3)->create();
 
-        $response->assertOk();
-        $response->assertViewIs('grupa.index');
-        $response->assertViewHas('grupas');
+        $response = $this->actingAs($admin)->get(route('grupa.index'));
+
+        foreach($grupe as $grupa){
+            $response->assertSee($grupa->naziv);
+        }
+
+        $response->assertStatus(200);
     }
 
-
-    #[Test]
-    public function create_displays_view(): void
+    /** @test */
+    public function vaspitac_moze_videti_samo_svoje_grupe() : void
     {
-        $response = $this->get(route('grupas.create'));
+        $vaspitac = User::factory()->create(['uloga' => 'vaspitac']);
 
-        $response->assertOk();
-        $response->assertViewIs('grupa.create');
+        $grupa1 = Grupa::factory()->create(['vaspitac_id' => $vaspitac->id]);
+        $grupa2 = Grupa::factory()->create();
+
+        $response = $this->actingAs($vaspitac)->get(route('grupa.index'));
+
+        $response->assertSee($grupa1->naziv);
+        $response->assertDontSee($grupa2->naziv);
+
+        $response->assertStatus(200);
     }
 
-
-    #[Test]
-    public function store_uses_form_request_validation(): void
+    /** @test */
+    public function vaspitac_moze_pristupiti_svojoj_grupi() : void
     {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\GrupaController::class,
-            'store',
-            \App\Http\Requests\GrupaStoreRequest::class
-        );
+        $Vaspitac = User::factory()->create(['uloga' => 'vaspitac']);
+
+        $grupa = Grupa::factory()->create(['vaspitac_id' => $Vaspitac]);
+
+        $response = $this->actingAs($Vaspitac)->get(route('grupa.show', $grupa));
+
+        $response->assertStatus(200);
+
+        $response->assertSee($grupa->naziv); 
     }
 
-    #[Test]
-    public function store_saves_and_redirects(): void
+    /** @test */
+    public function vaspitac_ne_moze_pristupiti_tudjoj_grupi() : void
     {
-        $response = $this->post(route('grupas.store'));
+        $dodeljenVaspitac = User::factory()->create(['uloga' => 'vaspitac']);
+        $nedodeljenVaspitac = User::factory()->create(['uloga' => 'vaspitac']);
 
-        $response->assertRedirect(route('grupas.index'));
-        $response->assertSessionHas('grupa.id', $grupa->id);
+        $grupa = Grupa::factory()->create(['vaspitac_id' => $dodeljenVaspitac]);
 
-        $this->assertDatabaseHas(grupas, [ /* ... */ ]);
+        $response = $this->actingAs($nedodeljenVaspitac)->get(route('grupa.show', $grupa));
+
+        $response->assertStatus(403);
+        $response->assertSee('Nemate pravo pristupa ovoj grupi');    
     }
 
-
-    #[Test]
-    public function show_displays_view(): void
+    /** @test */
+    public function admin_moze_kreirati_grupe() : void
     {
-        $grupa = Grupa::factory()->create();
+        $admin = User::factory()->create(['uloga' => 'admin']);
+        $vaspitac = User::factory()->create(['uloga' => 'vaspitac']);
 
-        $response = $this->get(route('grupas.show', $grupa));
+        $podaci = [
+            'naziv' => 'Pcelice',
+            'vaspitac_id' => (string)$vaspitac->id
+        ];
 
-        $response->assertOk();
-        $response->assertViewIs('grupa.show');
-        $response->assertViewHas('grupa');
+        $response = $this->actingAs($admin)->post(route('grupa.store'), $podaci);
+
+        $this->assertDatabaseHas('grupas', $podaci);
+
+        $response->assertRedirect(route('grupa.index'));
+        $response->assertSessionHas('success', 'Grupa je kreirana!');
     }
 
-
-    #[Test]
-    public function edit_displays_view(): void
+    /** @test */
+    public function admin_moze_azurirati_decu_i_vaspitaca_u_grupi() : void
     {
-        $grupa = Grupa::factory()->create();
+        $admin = User::factory()->create(['uloga' => 'admin']);
+        $vaspitac = User::factory()->create(['uloga' => 'vaspitac']);
 
-        $response = $this->get(route('grupas.edit', $grupa));
+        $grupa = Grupa::factory()->create(['vaspitac_id' => $vaspitac->id]);
 
-        $response->assertOk();
-        $response->assertViewIs('grupa.edit');
-        $response->assertViewHas('grupa');
-    }
+        $dete1 = Dete::factory()->create(['grupa_id' => $grupa->id]);
+        $dete2 = Dete::factory()->create(['grupa_id' => null]);
 
+        $this->assertEquals($grupa->id, $dete1->grupa_id);
+        $this->assertNull($dete2->grupa_id);
 
-    #[Test]
-    public function update_uses_form_request_validation(): void
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\GrupaController::class,
-            'update',
-            \App\Http\Requests\GrupaUpdateRequest::class
-        );
-    }
+        $noviVaspitac = User::factory()->create(['uloga' => 'vaspitac']);
 
-    #[Test]
-    public function update_redirects(): void
-    {
-        $grupa = Grupa::factory()->create();
-
-        $response = $this->put(route('grupas.update', $grupa));
+        $response = $this->actingAs($admin)->put(route('grupa.update', $grupa), [
+            'naziv' => 'promenjen naziv',
+            'vaspitac_id' => $noviVaspitac->id,
+            'deca' => [$dete2->id]
+        ]);
 
         $grupa->refresh();
 
-        $response->assertRedirect(route('grupas.index'));
-        $response->assertSessionHas('grupa.id', $grupa->id);
-    }
+        $this->assertEquals('promenjen naziv', $grupa->naziv);
+        $this->assertEquals($noviVaspitac->id, $grupa->vaspitac_id);
 
+        $this->assertNull($dete1->fresh()->grupa_id);
+        $this->assertEquals($grupa->id, $dete2->fresh()->grupa_id);
 
-    #[Test]
-    public function destroy_deletes_and_redirects(): void
-    {
-        $grupa = Grupa::factory()->create();
-
-        $response = $this->delete(route('grupas.destroy', $grupa));
-
-        $response->assertRedirect(route('grupas.index'));
-
-        $this->assertModelMissing($grupa);
+        $response->assertRedirect(route('grupa.show', $grupa));
+        $response->assertSessionHas('success', 'Grupa uspešno ažurirana!');
     }
 }

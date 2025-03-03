@@ -25,8 +25,8 @@ class RoditeljFactory extends Factory
         return [
             'ime' => $this->faker->text(255),
             'prezime' => $this->faker->text(255),
-            'broj_telefona' => $this->faker->text(255),
-            'jmbg' => $this->faker->unique->text(255),
+            'broj_telefona' => $this->faker->numerify('##########'),
+            'jmbg' => $this->faker->unique->numerify('#############'),
         ];
     }
 }

@@ -69,7 +69,7 @@ class PrijavaController extends Controller
             $dete = Dete::where('jmbg', $prijava->jmbg_dete)->first();
             
             if($dete){
-                return redirect()->back()->withErrors(['error' => 'Dete sa ovim JMBG-om već postoji u bazi!']);
+                return redirect()->route('prijava.show', $prijava)->withErrors(['error' => 'Dete sa ovim JMBG-om već postoji u bazi, prijava ne može biti potvrđena!']);
             }
 
             $dete = Dete::create([

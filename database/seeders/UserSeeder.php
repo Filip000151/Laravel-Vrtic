@@ -33,6 +33,16 @@ class UserSeeder extends Seeder
             'uloga' => 'vaspitac',
             'created_at' => now(),
             'updated_at' => now()
+        ],
+        [
+            'ime' => 'Nevena',
+            'prezime' => 'Pesic',
+            'broj_telefona' => '0636538865',
+            'email' => 'nevenapesic@gmail.com',
+            'password' => \Hash::make('nevena'),
+            'uloga' => 'vaspitac',
+            'created_at' => now(),
+            'updated_at' => now()
         ]
         ]);
     }

@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use JMac\Testing\Traits\AdditionalAssertions;
+use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -14,112 +14,108 @@ use Tests\TestCase;
  */
 final class UserControllerTest extends TestCase
 {
-    use AdditionalAssertions, RefreshDatabase, WithFaker;
+    use RefreshDatabase;
 
-    #[Test]
-    public function index_displays_view(): void
+    /** @test */
+    public function admin_moze_registrovati_novog_vaspitaca_ili_admina() : void
     {
-        $users = User::factory()->count(3)->create();
+        $admin = User::factory()->create(['uloga' => 'admin']);
 
-        $response = $this->get(route('users.index'));
+        $podaci = [
+            'ime' => 'Marko',
+            'prezime' => 'Marković',
+            'broj_telefona' => '0631254485',
+            'email' => 'marko@gmail.com',
+            'password' => 'marko123',
+            'password_confirmation' => 'marko123',
+            'uloga' => 'vaspitac'
+        ];
 
-        $response->assertOk();
-        $response->assertViewIs('user.index');
-        $response->assertViewHas('users');
+        $response = $this->actingAs($admin)->post(route('user.store'), $podaci);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'marko@gmail.com',
+            'uloga' => 'vaspitac'
+        ]);
+
+        $response->assertRedirect(route('user.index'));
+        $response->assertSessionHas('success', 'Korisnik je uspešno registrovan!');
     }
 
-
-    #[Test]
-    public function create_displays_view(): void
+    /** @test */
+    public function admin_ne_moze_azurirati_korisnika_bez_ispravne_stare_lozinke() : void
     {
-        $response = $this->get(route('users.create'));
+        $admin = User::factory()->create(['uloga' => 'admin']);
 
-        $response->assertOk();
-        $response->assertViewIs('user.create');
+        $korisnik = User::factory()->create(['password' => Hash::make('stara lozinka')]);
+
+        $podaci = [
+            'old_password' => 'pogresna lozinka',
+            'ime' => 'Marko',
+            'prezime' => 'Marković',
+            'broj_telefona' => '0631254485',
+            'email' => 'marko@gmail.com',
+            'password' => 'nova lozinka',
+            'password_confirmation' => 'nova lozinka'
+        ];
+
+        $response = $this->actingAs($admin)->put(route('user.update', $korisnik), $podaci);
+
+        $response->assertRedirect(route('user.index'));
+        $response->assertSessionHasErrors(['old_password' => 'Stara lozinka nije tačna!']);
     }
 
-
-    #[Test]
-    public function store_uses_form_request_validation(): void
+    /** @test */
+    public function admin_moze_promeniti_podatke_korisnika() : void
     {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\UserController::class,
-            'store',
-            \App\Http\Requests\UserStoreRequest::class
-        );
+        $admin = User::factory()->create(['uloga' => 'admin']);
+
+        $korisnik = User::factory()->create(['password' => Hash::make('stara lozinka')]);
+
+        $podaci = [
+            'old_password' => 'stara lozinka',
+            'ime' => 'Marko',
+            'prezime' => 'Marković',
+            'broj_telefona' => '0631254485',
+            'email' => 'markomarkovic@gmail.com',
+            'password' => 'nova lozinka',
+            'password_confirmation' => 'nova lozinka'
+        ];
+
+        $response = $this->actingAs($admin)->put(route('user.update', $korisnik), $podaci);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'markomarkovic@gmail.com',
+            'broj_telefona' => '0631254485',
+        ]);
+
+        $response->assertRedirect(route('user.index'));
+        $response->assertSessionHas('success', 'Podaci su uspešno ažurirani!');
     }
 
-    #[Test]
-    public function store_saves_and_redirects(): void
+    /** @test */
+    public function admin_moze_promeniti_podatke_korisnika_bez_menjanja_lozinke() : void
     {
-        $response = $this->post(route('users.store'));
+        $admin = User::factory()->create(['uloga' => 'admin']);
 
-        $response->assertRedirect(route('users.index'));
-        $response->assertSessionHas('user.id', $user->id);
+        $korisnik = User::factory()->create(['password' => Hash::make('stara lozinka')]);
 
-        $this->assertDatabaseHas(users, [ /* ... */ ]);
-    }
+        $podaci = [
+            'old_password' => 'stara lozinka',
+            'ime' => 'Marko',
+            'prezime' => 'Marković',
+            'broj_telefona' => '0631254485',
+            'email' => 'markomarkovic@gmail.com',
+        ];
 
+        $response = $this->actingAs($admin)->put(route('user.update', $korisnik), $podaci);
 
-    #[Test]
-    public function show_displays_view(): void
-    {
-        $user = User::factory()->create();
+        $this->assertDatabaseHas('users', [
+            'email' => 'markomarkovic@gmail.com',
+            'broj_telefona' => '0631254485'
+        ]);
 
-        $response = $this->get(route('users.show', $user));
-
-        $response->assertOk();
-        $response->assertViewIs('user.show');
-        $response->assertViewHas('user');
-    }
-
-
-    #[Test]
-    public function edit_displays_view(): void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->get(route('users.edit', $user));
-
-        $response->assertOk();
-        $response->assertViewIs('user.edit');
-        $response->assertViewHas('user');
-    }
-
-
-    #[Test]
-    public function update_uses_form_request_validation(): void
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\UserController::class,
-            'update',
-            \App\Http\Requests\UserUpdateRequest::class
-        );
-    }
-
-    #[Test]
-    public function update_redirects(): void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->put(route('users.update', $user));
-
-        $user->refresh();
-
-        $response->assertRedirect(route('users.index'));
-        $response->assertSessionHas('user.id', $user->id);
-    }
-
-
-    #[Test]
-    public function destroy_deletes_and_redirects(): void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->delete(route('users.destroy', $user));
-
-        $response->assertRedirect(route('users.index'));
-
-        $this->assertModelMissing($user);
+        $response->assertRedirect(route('user.index'));
+        $response->assertSessionHas('success', 'Podaci su uspešno ažurirani!');
     }
 }

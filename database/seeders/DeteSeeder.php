@@ -29,11 +29,11 @@ class DeteSeeder extends Seeder
         [
             'ime' => 'Filip',
             'prezime' => 'Damjanovic',
-            'datum_rodjenja' => Carbon::createFromFormat('d.m.Y', '11.11.2020')->toDateString(),
+            'datum_rodjenja' => Carbon::createFromFormat('d.m.Y', '15.09.2020')->toDateString(),
             'napomene' => 'Intolerancija na laktozu, ne sme mlečne proizvode.',
-            'jmbg' => '1111020543692',
+            'jmbg' => '1509020543692',
             'roditelj_id' => 1,
-            'grupa_id' => 1,
+            'grupa_id' => null,
             'created_at' => now(),
             'updated_at' => now()
         ],
@@ -55,7 +55,7 @@ class DeteSeeder extends Seeder
             'napomene' => null,
             'jmbg' => '1409020538821',
             'roditelj_id' => 3,
-            'grupa_id' => 1,
+            'grupa_id' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]

@@ -3,9 +3,11 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Evidencija;
+use App\Models\User;
+use App\Models\Grupa;
+use App\Models\Dete;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use JMac\Testing\Traits\AdditionalAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -14,112 +16,52 @@ use Tests\TestCase;
  */
 final class EvidencijaControllerTest extends TestCase
 {
-    use AdditionalAssertions, RefreshDatabase, WithFaker;
+    use RefreshDatabase;
 
-    #[Test]
-    public function index_displays_view(): void
+    /** @test */
+    public function vaspitac_moze_da_kreira_evidenciju_za_svoju_grupu() : void
     {
-        $evidencijas = Evidencija::factory()->count(3)->create();
-
-        $response = $this->get(route('evidencijas.index'));
-
-        $response->assertOk();
-        $response->assertViewIs('evidencija.index');
-        $response->assertViewHas('evidencijas');
-    }
+        $vaspitac = User::factory()->create(['uloga' => 'vaspitac']);
 
 
-    #[Test]
-    public function create_displays_view(): void
-    {
-        $response = $this->get(route('evidencijas.create'));
+        $grupa = Grupa::factory()->create();
+        $dete1 = Dete::factory()->create();
+        $dete2 = Dete::factory()->create();
 
-        $response->assertOk();
-        $response->assertViewIs('evidencija.create');
-    }
+        $requestPodaci = [
+            'grupa_id' => $grupa->id,
+            'datum' => now()->toDateTimeString(),
+            'deca' => [
+                [
+                    'dete_id' => $dete1->id,
+                    'status' => 'prisutan',
+                    'napomena' => null
+                ],
+                [
+                    'dete_id' => $dete2->id,
+                    'status' => 'odsutan',
+                    'napomena' => 'neka napomena'
+                ]
+            ]
+        ];
 
+        $response = $this->actingAs($vaspitac)->post(route('evidencija.store'), $requestPodaci);
 
-    #[Test]
-    public function store_uses_form_request_validation(): void
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\EvidencijaController::class,
-            'store',
-            \App\Http\Requests\EvidencijaStoreRequest::class
-        );
-    }
+        $this->assertDatabaseHas('evidencijas', [
+            'grupa_id' => $grupa->id,
+            'datum' => $requestPodaci['datum']
+        ]);
 
-    #[Test]
-    public function store_saves_and_redirects(): void
-    {
-        $response = $this->post(route('evidencijas.store'));
+        foreach($requestPodaci['deca'] as $dete){
+            $this->assertDatabaseHas('prisustvo', [
+                'evidencija_id' => Evidencija::latest()->first()->id,
+                'dete_id' => $dete['dete_id'],
+                'status' => $dete['status'],
+                'napomena' => $dete['napomena'] ?? null
+            ]);
+        }
 
-        $response->assertRedirect(route('evidencijas.index'));
-        $response->assertSessionHas('evidencija.id', $evidencija->id);
-
-        $this->assertDatabaseHas(evidencijas, [ /* ... */ ]);
-    }
-
-
-    #[Test]
-    public function show_displays_view(): void
-    {
-        $evidencija = Evidencija::factory()->create();
-
-        $response = $this->get(route('evidencijas.show', $evidencija));
-
-        $response->assertOk();
-        $response->assertViewIs('evidencija.show');
-        $response->assertViewHas('evidencija');
-    }
-
-
-    #[Test]
-    public function edit_displays_view(): void
-    {
-        $evidencija = Evidencija::factory()->create();
-
-        $response = $this->get(route('evidencijas.edit', $evidencija));
-
-        $response->assertOk();
-        $response->assertViewIs('evidencija.edit');
-        $response->assertViewHas('evidencija');
-    }
-
-
-    #[Test]
-    public function update_uses_form_request_validation(): void
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\EvidencijaController::class,
-            'update',
-            \App\Http\Requests\EvidencijaUpdateRequest::class
-        );
-    }
-
-    #[Test]
-    public function update_redirects(): void
-    {
-        $evidencija = Evidencija::factory()->create();
-
-        $response = $this->put(route('evidencijas.update', $evidencija));
-
-        $evidencija->refresh();
-
-        $response->assertRedirect(route('evidencijas.index'));
-        $response->assertSessionHas('evidencija.id', $evidencija->id);
-    }
-
-
-    #[Test]
-    public function destroy_deletes_and_redirects(): void
-    {
-        $evidencija = Evidencija::factory()->create();
-
-        $response = $this->delete(route('evidencijas.destroy', $evidencija));
-
-        $response->assertRedirect(route('evidencijas.index'));
-
-        $this->assertModelMissing($evidencija);
+        $response->assertRedirect(route('grupa.show', ['grupa' => $grupa->id]));
+        $response->assertSessionHas('success', 'Evidencija uspešno napravljena!');
     }
 }

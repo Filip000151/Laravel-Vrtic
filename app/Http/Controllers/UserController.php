@@ -54,7 +54,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         if(!Hash::check($request->old_password, $user->password)){
-            return redirect()->back()->withErrors(['old_password' => 'Stara lozinka nije tačna!'])->withInput();
+            return redirect()->route('user.index')->withErrors(['old_password' => 'Stara lozinka nije tačna!'])->withInput();
         }
 
         $podaci = $request->only(['ime', 'prezime', 'broj_telefona', 'email']);

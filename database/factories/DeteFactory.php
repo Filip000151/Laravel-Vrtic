@@ -27,7 +27,7 @@ class DeteFactory extends Factory
             'prezime' => $this->faker->text(255),
             'datum_rodjenja' => $this->faker->date(),
             'napomene' => $this->faker->text(),
-            'jmbg' => $this->faker->unique->text(255),
+            'jmbg' => $this->faker->unique->numerify('#############'),
             'roditelj_id' => \App\Models\Roditelj::factory(),
             'grupa_id' => \App\Models\Grupa::factory(),
         ];

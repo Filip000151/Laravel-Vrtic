@@ -3,10 +3,11 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Dete;
+use App\Models\Prijava;
+use App\Models\Roditelj;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use JMac\Testing\Traits\AdditionalAssertions;
-use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
@@ -14,112 +15,74 @@ use Tests\TestCase;
  */
 final class DeteControllerTest extends TestCase
 {
-    use AdditionalAssertions, RefreshDatabase, WithFaker;
+    use RefreshDatabase;
 
-    #[Test]
-    public function index_displays_view(): void
+    /** @test */
+    public function ispis_deteta_i_brisanje_roditelja_ako_ima_samo_jedno_dete() : void
     {
-        $detes = Dete::factory()->count(3)->create();
+        $admin = User::factory()->create(['uloga' => 'admin']);
 
-        $response = $this->get(route('detes.index'));
+        $roditelj = Roditelj::factory()->create();
+        $dete = Dete::factory()->create(['roditelj_id' => $roditelj->id]);
 
-        $response->assertOk();
-        $response->assertViewIs('dete.index');
-        $response->assertViewHas('detes');
+        $prijava = Prijava::factory()->create([
+            'jmbg_dete' => $dete->jmbg,
+            'status' => 'potvrdjen'
+        ]);
+
+        $this->assertDatabaseHas('detes', ['id' => $dete->id]);
+        $this->assertDatabaseHas('roditeljs', ['id' => $roditelj->id]);
+        $this->assertDatabaseHas('prijavas', ['status' => 'potvrdjen']);
+
+        $response = $this->actingAs($admin)->delete(route('dete.destroy', $dete));
+
+        $this->assertDatabaseMissing('roditeljs', ['id' => $roditelj->id]);
+        $this->assertDatabaseMissing('detes', ['id' => $dete->id]);
+
+        $this->assertDatabaseHas('prijavas', [
+            'jmbg_dete' => $dete->jmbg,
+            'status' => 'ispisan'
+        ]);
+
+        $response->assertRedirect(route('dete.index'));
+        $response->assertSessionHas('success', 'Dete je ispisano!');
     }
 
-
-    #[Test]
-    public function create_displays_view(): void
+    /** @test */
+    public function ispis_deteta_i_cuvanje_roditelja_ako_ima_vise_od_jednog_deteta() : void
     {
-        $response = $this->get(route('detes.create'));
+        $admin = User::factory()->create(['uloga' => 'admin']);
 
-        $response->assertOk();
-        $response->assertViewIs('dete.create');
+        $roditelj = Roditelj::factory()->create();
+        $dete1 = Dete::factory()->create(['roditelj_id' => $roditelj->id]);
+        $dete2 = Dete::factory()->create(['roditelj_id' => $roditelj->id]);
+
+        $prijava1 = Prijava::factory()->create([
+            'jmbg_dete' => $dete1->jmbg,
+            'status' => 'potvrdjen'
+        ]);
+        $prijava2 = Prijava::factory()->create([
+            'jmbg_dete' => $dete2->jmbg,
+            'status' => 'potvrdjen'
+        ]);
+
+        $this->assertDatabaseHas('detes', ['id' => $dete1->id]);
+        $this->assertDatabaseHas('detes', ['id' => $dete2->id]);
+        $this->assertDatabaseHas('roditeljs', ['id' => $roditelj->id]);
+        $this->assertDatabaseCount('prijavas', 2);
+
+        $response = $this->actingAs($admin)->delete(route('dete.destroy', $dete1));
+
+        $this->assertDatabaseHas('roditeljs', ['id' => $roditelj->id]);
+        $this->assertDatabaseMissing('detes', ['id' => $dete1->id]);
+
+        $this->assertDatabaseHas('prijavas', [
+            'jmbg_dete' => $dete1->jmbg,
+            'status' => 'ispisan'
+        ]);
+
+        $response->assertRedirect(route('dete.index'));
+        $response->assertSessionHas('success', 'Dete je ispisano!');
     }
 
-
-    #[Test]
-    public function store_uses_form_request_validation(): void
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\DeteController::class,
-            'store',
-            \App\Http\Requests\DeteStoreRequest::class
-        );
-    }
-
-    #[Test]
-    public function store_saves_and_redirects(): void
-    {
-        $response = $this->post(route('detes.store'));
-
-        $response->assertRedirect(route('detes.index'));
-        $response->assertSessionHas('dete.id', $dete->id);
-
-        $this->assertDatabaseHas(detes, [ /* ... */ ]);
-    }
-
-
-    #[Test]
-    public function show_displays_view(): void
-    {
-        $dete = Dete::factory()->create();
-
-        $response = $this->get(route('detes.show', $dete));
-
-        $response->assertOk();
-        $response->assertViewIs('dete.show');
-        $response->assertViewHas('dete');
-    }
-
-
-    #[Test]
-    public function edit_displays_view(): void
-    {
-        $dete = Dete::factory()->create();
-
-        $response = $this->get(route('detes.edit', $dete));
-
-        $response->assertOk();
-        $response->assertViewIs('dete.edit');
-        $response->assertViewHas('dete');
-    }
-
-
-    #[Test]
-    public function update_uses_form_request_validation(): void
-    {
-        $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\DeteController::class,
-            'update',
-            \App\Http\Requests\DeteUpdateRequest::class
-        );
-    }
-
-    #[Test]
-    public function update_redirects(): void
-    {
-        $dete = Dete::factory()->create();
-
-        $response = $this->put(route('detes.update', $dete));
-
-        $dete->refresh();
-
-        $response->assertRedirect(route('detes.index'));
-        $response->assertSessionHas('dete.id', $dete->id);
-    }
-
-
-    #[Test]
-    public function destroy_deletes_and_redirects(): void
-    {
-        $dete = Dete::factory()->create();
-
-        $response = $this->delete(route('detes.destroy', $dete));
-
-        $response->assertRedirect(route('detes.index'));
-
-        $this->assertModelMissing($dete);
-    }
 }

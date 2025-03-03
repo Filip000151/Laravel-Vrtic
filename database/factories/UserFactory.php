@@ -25,12 +25,12 @@ class UserFactory extends Factory
         return [
             'ime' => $this->faker->name(),
             'prezime' => $this->faker->text(255),
-            'broj_telefona' => $this->faker->unique->text(255),
-            'email' => $this->faker->unique->email(),
+            'broj_telefona' => $this->faker->unique->numerify('##########'),
+            'email' => $this->faker->unique->safeEmail(),
             'email_verified_at' => now(),
             'password' => \Hash::make('password'),
             'remember_token' => Str::random(10),
-            'uloga' => $this->faker->text(255),
+            'uloga' => $this->faker->randomElement(['admin', 'vaspitac']),
         ];
     }
 
